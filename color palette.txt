@@ -20,36 +20,31 @@ Instead of the bright green, choose a soft mint green. It’s a fresh, modern co
 
 
 
+
 FOR HOME PAGE BEFORE LOGIN (EXCLUDING HEADER AND FOOTER)
 Based on your color palette, here’s how you can structure the color scheme for different sections of the homepage, excluding the header and footer:
 
-### **Homepage Color Scheme:**
+Based on your color palette, here’s how you can structure the color scheme for different sections of the homepage, excluding the header and footer:
 
-1. **Catchy Line Section:**
-   - **Background Color**: **#2C2A2D** (Base Dark Color)
-   - **Text Color**: **#FFD700** (Gold/Yellow) for a vibrant, eye-catching effect.
-   - **Font Style**: Use a bold font to emphasize the catchy line.
+Homepage Color Scheme:
+For your homepage without login, using the color palette you've chosen, here’s how you can apply the colors to different blocks and texts:
 
-2. **"Let the Party Begin" Section:**
-   - **Background Color**: **#3A3A3D** (Darker Gray) to differentiate it from the catchy line.
-   - **Text Color**: **#FFFFFF** (Pure White) for high contrast and readability.
-   - **Font Style**: Consider using a playful or modern font to match the party theme.
+Top Section: Catchy Line
+Background: Use #2C2A2D (Base Dark Color) for the background to give it a sleek and modern look.
+Text (Catchy Line): Use #FFFFFF (Pure White) to make the catchy line stand out sharply against the dark background.
+Subtext (if any): Use #B0B0B0 (Light Gray) for any less prominent subtext, such as a short description below the catchy line.
 
-3. **Benefits Section:**
-   - **Background Color**: **#F2F2F2** (Light Gray/Off White) for a clean and inviting look.
-   - **Text Color**: **#2C2A2D** (Base Dark Color) for the main benefit text.
-   - **Highlight Color for Icons or Important Text**: **#E16A20** (Base Vibrant Orange) for icons or headings of each benefit to make them pop.
-   - **Font Style**: Use a simple, readable font for the benefits, and consider bolding the headings.
+"Let the Party Begin" Button
+Button Background: Use #E16A20 (Base Vibrant Orange) to make the button pop.
+Button Text: Use #FFFFFF (Pure White) to ensure clear readability.
+Hover Effect: When hovering, change the button background to #F89C4C (Lighter Orange Tone).
 
-4. **Instagram Section:**
-   - **Background Color**: **#FFFFFF** (Pure White) for a bright and engaging display.
-   - **Border Color for the Instagram gallery**: **#E16A20** (Base Vibrant Orange) to frame the images.
-   - **Text Color**: **#2C2A2D** (Base Dark Color) for any accompanying text or captions.
+Benefits Section (3 Benefit Blocks)
+Background: Use #3A3A3D (Darker Gray) for the background of the benefit blocks to differentiate them from the top section.
+Benefit Titles: Use #FFD700 (Gold/Yellow) for the titles of each benefit to draw attention while keeping the color scheme lively.
+Benefit Descriptions: Use #B0B0B0 (Light Gray) for the text describing each benefit. It will maintain the balance with the darker gray background.
 
-### **Summary:**
-- **Catchy Line**: Dark background, gold text.
-- **"Let the Party Begin"**: Darker gray background, white text.
-- **Benefits**: Light gray background, dark text, orange highlights.
-- **Instagram Section**: White background, dark text, and orange border.
-
-This color scheme will create a cohesive and visually appealing homepage that resonates well with a youthful audience!
+Instagram Section (SS Display)
+Background: Use #2C2A2D (Base Dark Color) for the background of the Instagram section to keep consistency with the top section.
+Frame/Borders: Use #FFD700 (Gold/Yellow) for the borders or frame around the Instagram screenshots to make them stand out.
+Text/Caption (if any): Use #FFFFFF (Pure White) or #B0B0B0 (Light Gray) for any captions or descriptions under the Instagram images.
