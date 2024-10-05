@@ -1,0 +1,19 @@
+1. Background and Text Colors:
+#2C2A2D (Base Dark Color): Use this for your primary background, navigation bar, and footer. This dark shade provides a sleek and minimal look, making other elements pop. It’s perfect for a dark theme, which is popular among younger audiences.
+#FFFFFF (Pure White): For high contrast, use white for the main text, ensuring readability on the dark background.
+#B0B0B0 (Light Gray): Use this as a secondary text color for less prominent information like placeholders, secondary buttons, and labels. It contrasts well against both the dark and vibrant colors without overpowering them.
+2. Highlight and Accent Colors:
+#E16A20 (Base Vibrant Orange): This color is perfect for call-to-action elements like buttons, important icons, or links. You can also use it for accenting hover states on interactive elements (e.g., button hover, link hover). It draws attention while remaining consistent with your base.
+#F89C4C (Lighter Orange Tone): Use this as a hover effect for buttons or interactive elements based on the #E16A20 color. It’s a slightly lighter and softer variation of the base orange.
+
+4. Input Fields, Modals, and Containers:
+#3A3A3D (Darker Gray): Use this for input field backgrounds, cards, and modal backgrounds. It provides enough contrast from the #2C2A2D background while maintaining a clean, dark interface.
+#F2F2F2 (Light Gray/Off White): You can use this color for input field text, form labels, and borders to ensure a subtle contrast without being too stark.
+
+Replacement Accent Colors:
+#FFD700 (Gold/Yellow):
+Use this color as a replacement for the deep blue. It can be used for secondary buttons, icons, or even hover effects. Gold/yellow contrasts beautifully with the dark background and adds a vibrant, youthful energy.
+#FF4E50 (Vibrant Red):
+Instead of deep maroon, go for this vibrant red. It can be used for warnings, errors, or critical notifications. It maintains the warmth of the palette while adding intensity to alerts or error states.
+#3DDC97 (Mint Green):
+Instead of the bright green, choose a soft mint green. It’s a fresh, modern color that pairs well with the orange and adds a positive, welcoming tone for success messages, confirmations, or positive feedback.
