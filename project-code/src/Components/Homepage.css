@@ -1,0 +1,76 @@
+/* Global Styles */
+.homepage {
+    background-color: #2C2A2D;
+    color: #FFFFFF;
+    font-family: 'Arial', sans-serif;
+  }
+  
+  /* Section 1: Catchy Line */
+  .catchy-line {
+    background-color: #2C2A2D;
+    padding: 80px 20px;
+  }
+  .catchy-text {
+    font-size: 3rem;
+    color: #FFFFFF;
+  }
+  .subtext {
+    color: #B0B0B0;
+    margin-top: 10px;
+  }
+  
+  /* Section 2: Button */
+  .button-section {
+    padding: 40px 20px;
+  }
+  .btn-cta {
+    background-color: #E16A20;
+    border: none;
+    color: #FFFFFF;
+  }
+  .btn-cta:hover {
+    background-color: #F89C4C;
+  }
+  
+  /* Section 3: Benefits Section */
+  .benefits-section {
+    background-color: #3A3A3D;
+    padding: 60px 20px;
+    color: #B0B0B0;
+  }
+  .benefit-block {
+    background-color: transparent;
+    padding: 20px;
+    border: 1px solid #FFD700;
+    border-radius: 8px;
+    margin-bottom: 30px;
+  }
+  .benefit-title {
+    color: #FFD700;
+    font-size: 1.5rem;
+  }
+  .benefit-description {
+    color: #B0B0B0;
+    margin-top: 10px;
+  }
+  
+  /* Section 4: Social Media Section */
+  .social-media-section {
+    background-color: #2C2A2D;
+    padding: 60px 20px;
+    color: #FFFFFF;
+  }
+  .instagram-frames {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-top: 20px;
+  }
+  .instagram-frame {
+    width: 150px;
+    height: 150px;
+    background-color: #3A3A3D;
+    border: 3px solid #FFD700;
+    border-radius: 10px;
+  }
+  
