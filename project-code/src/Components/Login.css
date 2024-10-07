@@ -1,0 +1,99 @@
+/* Page background */
+.login-container {
+    height: 100vh;
+    background-color: #2C2A2D;
+    /* Base Dark Color */
+}
+
+/* Form container */
+.form-container {
+    background-color: #3A3A3D;
+    /* Darker Gray */
+    border-radius: 8px;
+    width: 400px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Image placeholder styling */
+.image-placeholder img {
+    display: block;
+    margin: 0 auto;
+    border-radius: 50%;
+    width: 100px;
+    height: 100px;
+}
+
+/* Primary Text (Headings and Labels) */
+.form-label {
+    color: #FFFFFF;
+    /* White for labels */
+}
+
+/* Input Fields */
+.form-control {
+    background-color: #3A3A3D;
+    /* Darker Gray for input fields */
+    color: #F2F2F2;
+    /* Light Gray text */
+    border: 2px solid #FFD700;
+    /* Gold border */
+}
+
+.form-control::placeholder {
+    color: #B0B0B0;
+    /* Light Gray for placeholder text */
+}
+
+/* Button Styling */
+.custom-btn-primary {
+    background-color: #E16A20;
+    /* Base Vibrant Orange for primary button */
+    color: #FFFFFF;
+    /* White text */
+    border: none;
+}
+
+.custom-btn-primary:hover {
+    background-color: #F89C4C;
+    /* Lighter Orange hover effect */
+}
+
+.custom-btn-secondary {
+    background-color: #3DDC97;
+    /* Mint Green for secondary button */
+    color: #FFFFFF;
+    /* White text */
+    border: none;
+}
+
+.custom-btn-secondary:hover {
+    background-color: #4AE0A7;
+    /* Lighter Mint hover effect */
+}
+
+/* Links */
+.forgot-password,
+.create-account {
+    color: #E16A20;
+    /* Base Vibrant Orange */
+    text-decoration: none;
+    margin-left: 5px;
+}
+
+.forgot-password:hover,
+.create-account:hover {
+    color: #F89C4C;
+    /* Lighter Orange hover effect */
+    text-decoration: underline;
+}
+
+/* Error/Success States (triggered with JavaScript validation) */
+.form-control.is-invalid {
+    border-color: #FF4E50;
+    /* Vibrant Red for error */
+}
+
+.form-control.is-valid {
+    border-color: #FFD700;
+    /* Gold for valid input */
+}
