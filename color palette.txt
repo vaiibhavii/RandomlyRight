@@ -148,3 +148,49 @@ Primary Button: #E16A20 (Orange) with #F89C4C (Lighter Orange) on hover
 Secondary Button: #3DDC97 (Mint Green) with #4AE0A7 (Lighter Mint) on hover
 Error State: #FF4E50 (Vibrant Red)
 Success State: #3DDC97 (Mint Green)
+
+FOR LOGIN PAGE 
+
+Login Page Color Scheme:
+Background and Form Container:
+
+Page Background: Use #2C2A2D (Base Dark Color) for the overall page background to create that sleek and modern look.
+Form Container: Use #3A3A3D (Darker Gray) for the form container background, giving it a subtle contrast against the main page background.
+Text Colors:
+
+Primary Text (Labels, Headings): Use #FFFFFF (Pure White) to make the "Username" and "Password" labels and the page heading clear and readable.
+Placeholder Text: Use #B0B0B0 (Light Gray) for the placeholder text inside the input fields to keep it subtle yet visible.
+Input Fields:
+
+Input Field Background: Use #3A3A3D (Darker Gray) for the input fields to match the overall container, with subtle differentiation.
+Input Field Text: Use #F2F2F2 (Light Gray/Off White) for the text inside the fields for readability against the dark background.
+Input Field Border: Use #FFD700 (Gold/Yellow) for the borders to make the input fields stand out without being overly flashy.
+Buttons:
+
+Primary Button (Login):
+Background: Use #E16A20 (Base Vibrant Orange) to make the login button pop.
+Text: Use #FFFFFF (Pure White) for the text inside the button.
+Hover Effect: Use #F89C4C (Lighter Orange Tone) for a smooth hover effect when the user interacts with the button.
+Forgot Password/Other Links:
+
+Link Text: Use #E16A20 (Base Vibrant Orange) for any links like "Forgot Password?" or "Create an Account" to keep them noticeable but not overly bold.
+Link Hover Effect: Use #F89C4C (Lighter Orange Tone) for the hover state to make the links interactive without being distracting.
+Error/Validation States:
+
+Error Message Text: Use #FF4E50 (Vibrant Red) for error messages, such as incorrect credentials. It stands out clearly while maintaining the energetic vibe.
+Input Field Border (Error State): When a user enters invalid details, use #FF4E50 (Vibrant Red) for the input field border.
+Success States:
+
+Success Message Text: Use #3DDC97 (Mint Green) for success messages like "Logged in successfully."
+Input Field Border (Success State): When input is valid, use #FFD700 (Gold/Yellow) to signal correctness subtly.
+Summary:
+Background: #2C2A2D (Dark Gray)
+Form Container: #3A3A3D (Darker Gray)
+Primary Text: #FFFFFF (White)
+Placeholder Text: #B0B0B0 (Light Gray)
+Input Field Background: #3A3A3D (Darker Gray)
+Input Field Text: #F2F2F2 (Light Gray/Off White)
+Primary Button: #E16A20 (Orange) with #F89C4C (Lighter Orange) on hover
+Link Text: #E16A20 (Orange) with #F89C4C (Lighter Orange) on hover
+Error State: #FF4E50 (Vibrant Red)
+Success State: #3DDC97 (Mint Green)
