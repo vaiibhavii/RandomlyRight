@@ -1,8 +1,13 @@
 /* Page background */
 .sign-in-container {
-    height: 100vh;
+    min-height: 100vh;
     background-color: #2C2A2D;
     /* Base Dark Color */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    padding: 20px;
+    /* Padding for mobile devices */
 }
 
 /* Form container */
@@ -10,7 +15,11 @@
     background-color: #3A3A3D;
     /* Darker Gray */
     border-radius: 8px;
-    width: 400px;
+    width: 100%;
+    /* Full width on small screens */
+    max-width: 400px;
+    /* Maximum width on larger screens */
+    padding: 20px;
     box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
 }
 
@@ -27,6 +36,7 @@
 .form-label {
     color: #FFFFFF;
     /* White for labels */
+    font-size: 1.1rem;
 }
 
 /* Input Fields */
@@ -37,6 +47,11 @@
     /* Light Gray text */
     border: 2px solid #FFD700;
     /* Gold border */
+    border-radius: 5px;
+    padding: 10px;
+    margin-bottom: 15px;
+    /* Space between input fields */
+    width: 100%;
 }
 
 .form-control::placeholder {
@@ -45,9 +60,20 @@
 }
 
 /* Button Styling */
+.custom-btn-primary,
+.custom-btn-secondary {
+    width: 100%;
+    /* Full width buttons for mobile */
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    cursor: pointer;
+    margin-bottom: 15px;
+}
+
 .custom-btn-primary {
     background-color: #E16A20;
-    /* Base Vibrant Orange for primary button */
+    /* Base Vibrant Orange */
     color: #FFFFFF;
     /* White text */
     border: none;
@@ -60,7 +86,7 @@
 
 .custom-btn-secondary {
     background-color: #3DDC97;
-    /* Mint Green for secondary button */
+    /* Mint Green */
     color: #FFFFFF;
     /* White text */
     border: none;
@@ -75,13 +101,14 @@
 .forgot-password {
     color: #FFFFFF;
     text-decoration: none;
+    font-size: 0.9rem;
 }
 
 .forgot-password:hover {
     text-decoration: underline;
 }
 
-/* Error/Success States (you can trigger these with JavaScript validation) */
+/* Error/Success States */
 .form-control.is-invalid {
     border-color: #FF4E50;
     /* Vibrant Red for error */
@@ -90,4 +117,29 @@
 .form-control.is-valid {
     border-color: #FFD700;
     /* Gold for valid input */
+}
+
+/* Responsive Design */
+@media (min-width: 576px) {
+    .form-container {
+        padding: 30px;
+    }
+
+    .custom-btn-primary,
+    .custom-btn-secondary {
+        width: auto;
+        /* Buttons will adjust size based on content for larger screens */
+        padding: 12px 30px;
+    }
+}
+
+@media (max-width: 576px) {
+    .form-container {
+        padding: 15px;
+    }
+
+    .form-control {
+        font-size: 14px;
+        /* Smaller font for mobile */
+    }
 }
