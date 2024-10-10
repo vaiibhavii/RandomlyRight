@@ -1,0 +1,67 @@
+/* Page background */
+.error-container {
+    background-color: #1A1A1D;
+    /* Dark Grayish Black */
+    min-height: 100vh;
+    padding: 20px;
+    text-align: center;
+    color: #FFFFFF;
+    /* White for text */
+}
+
+/* GIF Styling */
+.gif-container img {
+    width: 300px;
+    height: auto;
+    margin-bottom: 20px;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
+}
+
+/* Error Code */
+.error-code {
+    font-size: 6rem;
+    color: #FF4E50;
+    /* Vibrant Red */
+    font-weight: bold;
+    margin-bottom: 20px;
+}
+
+/* Error Message */
+.error-message {
+    font-size: 1.5rem;
+    color: #FFD700;
+    /* Gold */
+    margin-bottom: 10px;
+}
+
+/* Error Description */
+.error-description {
+    font-size: 1rem;
+    color: #B0B0B0;
+    /* Light Gray */
+    margin-bottom: 30px;
+    max-width: 500px;
+    margin-left: auto;
+    margin-right: auto;
+}
+
+/* Button Styling */
+.custom-btn {
+    background-color: #FFD700;
+    /* Gold */
+    color: #FFFFFF;
+    /* White text */
+    border: none;
+    padding: 10px 20px;
+    font-size: 1rem;
+    border-radius: 5px;
+    transition: background-color 0.3s ease;
+}
+
+.custom-btn:hover {
+    background-color: #E16A20;
+    /* Vibrant Orange */
+    color: #FFFFFF;
+    /* Keep text white on hover */
+}
