@@ -8,12 +8,20 @@ import Login from './Components/Loginpage';
 import SignIn from './Components/SignInPage';
 
 function App() {
-  return (<div className="App">
-    <Login />
-    {/* <Navbar />
-    <Homepage />
-    <Footer /> */}
-  </div>);
+  return (
+    <Router>
+      <div className="App">
+        <Navbar />
+        <Routes>
+          <Route path='/signup' element={<SignIn />} />
+          <Route path='/login' element={<Login />} />
+          <Route path='/' element={<Homepage />} />
+
+        </Routes>
+        <Footer />
+      </div >
+    </Router>
+  );
 }
 
 export default App;
