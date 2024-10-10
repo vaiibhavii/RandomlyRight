@@ -27,7 +27,7 @@ const Navbar = () => {
         <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
           <ul className="navbar-nav">
             <li className="nav-item d-flex align-items-center justify-content-center">
-              <a className="nav-link" href="/home">Home</a>
+              <a className="nav-link" href="/">Home</a>
             </li>
             <li className="nav-item d-flex align-items-center justify-content-center">
               <a className="nav-link" href="/about">About</a>
