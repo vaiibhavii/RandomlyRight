@@ -4,10 +4,12 @@ import './Footer.css';
 const Footer = () => {
   return (
     <footer className="footer">
-        {/* Logo Placeholder */}
-        <div className="text-center logo-placeholder">
+      {/* Logo Placeholder */}
+      <div className="text-center logo-placeholder">
+        <a href="/" rel="noopener noreferrer">
           <img src="https://placehold.co/150x50?text=Logo+Here" alt="Placeholder Logo" />
-        </div>
+        </a>
+      </div>
 
       <div className="container">
         <div className="row">
@@ -25,7 +27,7 @@ const Footer = () => {
           <div className="col-md-3">
             <h5 className="section-title">Quick Links</h5>
             <ul className="list-unstyled">
-              <li><a href="/home">Home</a></li>
+              <li><a href="/">Home</a></li>
               <li><a href="/about">About Us</a></li>
               <li><a href="/contact">Contact Us</a></li>
             </ul>
@@ -51,7 +53,7 @@ const Footer = () => {
           </div>
         </div>
 
-        
+
 
         {/* Bottom Section: Copyright */}
         <div className="footer-bottom text-center">

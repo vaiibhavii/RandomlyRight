@@ -42,7 +42,7 @@ function Login() {
 
                 <div className="text-center mt-3">
                     <a href="#" className="forgot-password">Forgot Password?</a> |
-                    <a href="#" className="create-account">Create an Account</a>
+                    <a href="/signup" className="create-account">Create an Account</a>
                 </div>
             </div>
         </div>

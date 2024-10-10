@@ -40,12 +40,11 @@ const Navbar = () => {
 
         {/* Right Buttons */}
         <div className="d-flex">
-          <button className="btn btn-login me-2" type="button">Log In</button>
-          <button className="btn btn-create-account" type="button">Create Account</button>
+          <a href='/login' className="btn btn-login me-2" type="button">Log In</a>
+          <a href='/signup' className="btn btn-create-account" type="button">Create Account</a>
         </div>
       </div>
     </nav>
   );
 };
-
 export default Navbar;
