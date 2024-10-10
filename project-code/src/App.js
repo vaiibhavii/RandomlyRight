@@ -9,7 +9,7 @@ import SignIn from './Components/SignInPage';
 
 function App() {
   return (<div className="App">
-    <Login />
+    <SignIn />
     {/* <Navbar />
     <Homepage />
     <Footer /> */}
