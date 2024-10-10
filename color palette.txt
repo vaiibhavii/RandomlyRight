@@ -226,3 +226,49 @@ Links and Hover Effects:
 Normal: #FFFFFF
 Hover: #FF4E50
 This combination ensures the page communicates the error but still keeps it visually appealing and on-brand.
+
+FOR CONTACT PAGE:
+For the contact page based on the color palette you provided, here's the color scheme breakdown:
+
+Primary Colors:
+Background:
+
+Use #2C2A2D (Base Dark Color) for the entire page background, providing a sleek and minimal look, with the main sections standing out.
+Text Colors:
+
+Main Text: Use #FFFFFF (Pure White) for all primary content like headings, labels, and important text to ensure high readability.
+Secondary Text: Use #B0B0B0 (Light Gray) for placeholders, less important information, and descriptions.
+Buttons and Call-to-Actions:
+Primary Button:
+
+Background: Use #E16A20 (Base Vibrant Orange) for the "Send" button.
+Hover: Use #F89C4C (Lighter Orange Tone) for hover effects on the button.
+Secondary Button (Optional):
+
+Background: Use #FFD700 (Gold) for less important buttons like "Reset" or "Cancel."
+Hover: Use a slightly lighter shade of gold for the hover effect.
+Form Fields and Containers:
+Input Fields Background:
+
+Use #3A3A3D (Darker Gray) for input fields and textarea backgrounds.
+Input Fields Text:
+
+Use #F2F2F2 (Light Gray/Off White) for the text inside the input fields, ensuring a subtle contrast with the dark background.
+Input Borders:
+
+Add a border color of #FFD700 (Gold/Yellow) to make the input fields stand out.
+Use #FF4E50 (Vibrant Red) for error states.
+Icons and Accent Elements:
+Icons (like Phone, Email, etc.):
+Use #E16A20 (Base Vibrant Orange) for the primary icons to match the buttons.
+On hover, use the lighter version #F89C4C.
+Success and Error Messages:
+Success Message:
+
+Background: Use #3DDC97 (Mint Green) for the background of success notifications.
+Text: Use #FFFFFF (Pure White) for the success text.
+Error Message:
+
+Background: Use #FF4E50 (Vibrant Red) for error notifications.
+Text: Use #FFFFFF (Pure White) to ensure the error message is highly visible.
+This scheme will maintain consistency with your other pages and align well with the overall aesthetic of the project.
