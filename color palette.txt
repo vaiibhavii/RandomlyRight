@@ -183,14 +183,46 @@ Success States:
 
 Success Message Text: Use #3DDC97 (Mint Green) for success messages like "Logged in successfully."
 Input Field Border (Success State): When input is valid, use #FFD700 (Gold/Yellow) to signal correctness subtly.
-Summary:
-Background: #2C2A2D (Dark Gray)
-Form Container: #3A3A3D (Darker Gray)
-Primary Text: #FFFFFF (White)
-Placeholder Text: #B0B0B0 (Light Gray)
-Input Field Background: #3A3A3D (Darker Gray)
-Input Field Text: #F2F2F2 (Light Gray/Off White)
-Primary Button: #E16A20 (Orange) with #F89C4C (Lighter Orange) on hover
-Link Text: #E16A20 (Orange) with #F89C4C (Lighter Orange) on hover
-Error State: #FF4E50 (Vibrant Red)
-Success State: #3DDC97 (Mint Green)
+
+
+FOR ERROR 404 PAGE
+For a 404 error page, the colors should strike a balance between indicating an error while still keeping the design engaging. You can use a combination of warning colors with a touch of vibrancy for emphasis, complemented by muted tones for balance.
+
+Here’s a color scheme suggestion:
+
+Background and Text Colors:
+#1A1A1D (Dark Grayish Black):
+
+Primary Background: Creates a strong, neutral backdrop to emphasize the error message.
+#FFFFFF (White):
+
+Main Text: For high contrast against the dark background, making the "404" or main error text stand out.
+#B0B0B0 (Light Gray):
+
+Secondary Text: Used for supporting information like "Page Not Found" or smaller descriptive text.
+Highlight and Accent Colors:
+#FF4E50 (Vibrant Red):
+
+Main Error Highlight: For the "404" number or error message. Red indicates an issue but still grabs attention.
+#FFD700 (Gold/Yellow):
+
+Call-to-action buttons (Go back to home, Contact Support): This adds a bright, friendly tone to lead the user back to the main site.
+Button, Input Fields, and Links:
+#3DDC97 (Mint Green):
+
+Button Hover States or Interactive Elements: Gives a refreshing, positive color for interaction, making clickable elements stand out.
+#E16A20 (Vibrant Orange):
+
+Secondary Accent: This could be used for additional icons, illustrations, or small visual elements like lines or borders to keep the page interesting.
+Possible Color Application:
+Background: #1A1A1D
+Main Error Text (404): #FF4E50
+Secondary Text: #B0B0B0
+Call-to-action Buttons:
+Background: #FFD700
+Text: #FFFFFF
+Hover Background: #E16A20
+Links and Hover Effects:
+Normal: #FFFFFF
+Hover: #FF4E50
+This combination ensures the page communicates the error but still keeps it visually appealing and on-brand.
