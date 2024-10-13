@@ -1,17 +1,39 @@
-import React from 'react';
+import React, { useRef } from 'react';
+import emailjs from '@emailjs/browser';
 import './Contact.css';
 
 function Contact() {
+  const form = useRef();
+
+  const sendEmail = (e) => {
+    e.preventDefault();
+
+    emailjs
+      .sendForm('service_37mzy4c', 'template_7215qv9', form.current, '_vFhgvQ185BTVIq2e')
+      .then(
+        () => {
+          console.log('SUCCESS!'); 
+          alert('Email sent succefully!');
+          e.target.reset();  // To clear form after successful submission
+        },
+        (error) => {
+          console.log('FAILED...', error.text);
+        }
+      );
+  };
+
   return (
     <div className="contact-page container-fluid">
       <div className="contact-form-wrapper">
         <h1 className="contact-heading">Contact Us</h1>
-        <form className="contact-form">
+        {/* Use the ref to target the form */}
+        <form className="contact-form" ref={form} onSubmit={sendEmail}>
           {/* Email Field */}
           <div className="form-group">
             <label htmlFor="email" className="form-label">Email</label>
             <input
               type="email"
+              name="user_email"   // EmailJS requires "name" attributes
               className="form-control contact-input"
               id="email"
               placeholder="Enter your email"
@@ -23,6 +45,7 @@ function Contact() {
             <label htmlFor="contact" className="form-label">Contact Number</label>
             <input
               type="tel"
+              name="user_contact"  // EmailJS requires "name" attributes
               className="form-control contact-input"
               id="contact"
               placeholder="Enter your contact number"
@@ -34,6 +57,7 @@ function Contact() {
             <label htmlFor="subject" className="form-label">Subject</label>
             <input
               type="text"
+              name="subject"   // EmailJS requires "name" attributes
               className="form-control contact-input"
               id="subject"
               placeholder="Enter the subject"
@@ -44,6 +68,7 @@ function Contact() {
           <div className="form-group">
             <label htmlFor="description" className="form-label">Description</label>
             <textarea
+              name="message"  // EmailJS requires "name" attributes
               className="form-control contact-textarea"
               id="description"
               rows="5"
