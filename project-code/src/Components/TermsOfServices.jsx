@@ -3,7 +3,7 @@ import './TermsOfService.css';
 
 const TermsOfService = () => {
     return (
-        <div className="tos-full-page-container">
+        <div className="tos-full-page-container px-5 p-md-5">
             <div className="tos-header">
                 <h1>Terms of Service</h1>
                 <p>Effective Date: 1st November 2024</p>
