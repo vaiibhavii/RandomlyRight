@@ -10,6 +10,7 @@ import Contact from './Components/Contact';
 import AboutUs from './Components/AboutUs';
 import TermsOfService from './Components/TermsOfServices';
 import PrivacyPolicy from './Components/PrivacyPolicy';
+import AdvicePage from './Components/AdvicePage';
 
 function App() {
   return (
@@ -25,6 +26,7 @@ function App() {
           <Route path='/about' element={<AboutUs />} />
           <Route path='/termsofservice' element={<TermsOfService />} />
           <Route path='/privacy-policy' element={<PrivacyPolicy />} />
+          <Route path='/advice-page' element={<AdvicePage />} />
 
         </Routes>
         <Footer />

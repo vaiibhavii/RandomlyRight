@@ -1,0 +1,88 @@
+.advice-page {
+    background-color: #2C2A2D;
+    color: #FFFFFF;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    height: 100vh;
+    padding: 20px;
+}
+
+.advice-container {
+    background-color: #3A3A3D;
+    padding: 20px;
+    width: 90%;
+    max-width: 500px;
+    text-align: center;
+    border-radius: 8px;
+    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.3);
+}
+
+.advice-text {
+    font-size: 1.5rem;
+    color: #FFFFFF;
+    margin-bottom: 20px;
+}
+
+.reaction-buttons button {
+    background-color: #E16A20;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    padding: 10px;
+    margin: 5px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.reaction-buttons button:hover {
+    background-color: #F89C4C;
+}
+
+.action-buttons {
+    margin-top: 20px;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+}
+
+.report-button,
+.next-button {
+    background-color: #FFD700;
+    color: #2C2A2D;
+    border: none;
+    border-radius: 4px;
+    padding: 10px 20px;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.report-button:hover,
+.next-button:hover {
+    background-color: #E16A20;
+    color: #FFFFFF;
+}
+
+.auto-fetch-label {
+    margin-top: 10px;
+    color: #B0B0B0;
+    font-size: 0.9rem;
+}
+
+.share-button {
+    position: fixed;
+    bottom: 20px;
+    right: 20px;
+    background-color: #3DDC97;
+    color: #FFFFFF;
+    border: none;
+    border-radius: 50%;
+    padding: 15px;
+    font-size: 1.2rem;
+    cursor: pointer;
+    transition: background-color 0.2s;
+}
+
+.share-button:hover {
+    background-color: #FF4E50;
+}

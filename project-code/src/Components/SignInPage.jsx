@@ -1,7 +1,59 @@
-import React from 'react';
-import './SignIn.css';  // Assuming you're putting custom CSS in this file
+import React, { useState } from 'react';
+import './SignIn.css'; // Assuming you're putting custom CSS in this file
+import { auth, googleProvider } from '../config/firebase'
+import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
 
 function SignIn() {
+    // State management for form inputs
+    const [username, setUsername] = useState('');
+    const [email, setEmail] = useState('');
+    const [phone, setPhone] = useState('');
+    const [password, setPassword] = useState('');
+    const [confirmPassword, setConfirmPassword] = useState('');
+    const [error, setError] = useState('');
+
+    // Handle form submission
+    const handleSignUp = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        try {
+            // Firebase sign-up with email and password
+            await createUserWithEmailAndPassword(auth, email, password);
+            alert('Sign-up successful!');
+        } catch (error) {
+            console.error('Error signing up:', error.message);
+            setError(error.message);
+        }
+    };
+
+    const handleGoogleSignIn = async (e) => {
+        e.preventDefault();
+        setError('');
+
+        // Check if passwords match
+        if (password !== confirmPassword) {
+            setError('Passwords do not match');
+            return;
+        }
+
+        try {
+            // Firebase sign-up with email and password
+            await signInWithPopup(auth, googleProvider);
+            alert('Sign-up successful!');
+        } catch (error) {
+            console.error('Error signing up:', error.message);
+            setError(error.message);
+        }
+    };
+
+
     return (
         <div className="sign-in-container d-flex justify-content-center align-items-center">
             <div className="form-container p-4">
@@ -12,7 +64,9 @@ function SignIn() {
 
                 <h2 className="text-center text-white mb-4">Sign In</h2>
 
-                <form>
+                {error && <div className="alert alert-danger text-center">{error}</div>}
+
+                <form onSubmit={handleSignUp}>
                     <div className="form-group mb-3">
                         <label htmlFor="username" className="form-label">Username</label>
                         <input
@@ -20,6 +74,8 @@ function SignIn() {
                             className="form-control"
                             id="username"
                             placeholder="Enter your username"
+                            value={username}
+                            onChange={(e) => setUsername(e.target.value)}
                         />
                     </div>
 
@@ -30,6 +86,8 @@ function SignIn() {
                             className="form-control"
                             id="email"
                             placeholder="Enter your email"
+                            value={email}
+                            onChange={(e) => setEmail(e.target.value)}
                         />
                     </div>
 
@@ -40,6 +98,8 @@ function SignIn() {
                             className="form-control"
                             id="phone"
                             placeholder="Enter your phone number"
+                            value={phone}
+                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </div>
 
@@ -50,6 +110,8 @@ function SignIn() {
                             className="form-control"
                             id="password"
                             placeholder="Enter your password"
+                            value={password}
+                            onChange={(e) => setPassword(e.target.value)}
                         />
                     </div>
 
@@ -60,20 +122,26 @@ function SignIn() {
                             className="form-control"
                             id="confirmPassword"
                             placeholder="Confirm your password"
+                            value={confirmPassword}
+                            onChange={(e) => setConfirmPassword(e.target.value)}
                         />
                     </div>
 
                     <div className="d-flex justify-content-center">
                         <button type="submit" className="btn btn-primary custom-btn-primary">
-                            Sign In
+                            Sign Up
                         </button>
+                    </div>
 
+                    <div className="text-center mt-3">
+                        <button onClick={handleGoogleSignIn} className="btn btn-danger custom-btn-google">
+                            Log in with Google
+                        </button>
                     </div>
                 </form>
 
                 <div className="text-center mt-3">
                     <a href="/login" className="forgot-password">Already have an account? Log in</a>
-
                 </div>
             </div>
         </div>
