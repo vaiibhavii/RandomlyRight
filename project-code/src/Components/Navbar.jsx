@@ -3,6 +3,7 @@ import './Navbar.css';
 import { auth } from '../config/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
+import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
@@ -66,15 +67,21 @@ const Navbar = () => {
         </div>
 
         {/* Right Buttons */}
-        <div className="d-flex">
+        <div className="d-flex align-items-center">
           {user ? (
-            <button onClick={handleLogout} className="btn btn-logout" type="button">
-              Log Out
-            </button>
+            <>
+              {/* Icon-only View Profile Button */}
+              <a href="/profile" className="btn me-2 p-2" type="button" title="View Profile">
+                <FaUserCircle size={24} />
+              </a>
+              <button onClick={handleLogout} className="btn btn-logout" type="button">
+                Log Out
+              </button>
+            </>
           ) : (
             <>
-              <a href='/login' className="btn btn-login me-2" type="button">Log In</a>
-              <a href='/signup' className="btn btn-create-account" type="button">Create Account</a>
+              <a href="/login" className="btn btn-login me-2" type="button">Log In</a>
+              <a href="/signup" className="btn btn-create-account" type="button">Create Account</a>
             </>
           )}
         </div>
