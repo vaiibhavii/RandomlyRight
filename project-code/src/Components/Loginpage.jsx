@@ -1,5 +1,6 @@
 import React from 'react';
 import './Login.css';  // Custom CSS file
+import { FcGoogle } from 'react-icons/fc';  // Google icon
 
 function Login() {
     return (
@@ -36,6 +37,12 @@ function Login() {
                     <div className="d-flex justify-content-center">
                         <button type="submit" className="btn btn-primary custom-btn-primary">
                             Login
+                        </button>
+                    </div>
+
+                    <div className="d-flex justify-content-center mt-3">
+                        <button type="button" className="btn custom-btn-google d-flex align-items-center">
+                            Log in with Google <FcGoogle className="ms-2" />
                         </button>
                     </div>
                 </form>
