@@ -2,9 +2,11 @@ import React, { useState, useEffect } from 'react';
 import './Navbar.css';
 import { auth } from '../config/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
+import { useNavigate } from 'react-router-dom';
 
 const Navbar = () => {
   const [user, setUser] = useState(null);
+  const navigate = useNavigate();
 
   // Check if a user is logged in
   useEffect(() => {
@@ -21,6 +23,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       alert('Logged out successfully!');
+      navigate('/login'); // Redirect to the login page after logout
     } catch (error) {
       console.error('Error logging out:', error);
     }
