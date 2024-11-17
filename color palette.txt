@@ -319,3 +319,30 @@ Error Message:
 Use #FF4E50 (Vibrant Red) for error messages, also paired with white text (#FFFFFF).
 This color scheme ensures that the About Us page stays visually cohesive with the rest of your project while adding vibrant accents and interactive elements for a modern, dynamic feel. The hover effect on images adds an engaging touch, making the page lively and professional.
 
+
+
+FOR DISPLAY COMMENT PAGE
+1. Background and Text Colors
+Primary Background: #2C2A2D (Base Dark Color)
+Use this as the primary background color across the page, for navigation, and in the footer to keep the theme minimal and modern.
+Main Text Color: #FFFFFF (Pure White)
+Perfect for advice text and primary content to ensure high readability on a dark background.
+Secondary Text Color: #B0B0B0 (Light Gray)
+For placeholders, secondary buttons, or labels that require subtle emphasis without drawing too much attention.
+2. Highlight and Accent Colors
+Primary Call-to-Action Buttons (e.g., “Next” and “Report”): #E16A20 (Base Vibrant Orange)
+Great for drawing attention to key buttons. This could be used on interactive elements for high visibility, and as the main accent color.
+Hover Color for Interactive Elements: #F89C4C (Lighter Orange Tone)
+Slightly softer, this hue can be applied as a hover color for call-to-action buttons to enhance user experience.
+3. Input Fields, Modals, and Containers
+Container Backgrounds (e.g., input fields, modals): #3A3A3D (Darker Gray)
+Use this for input fields, card backgrounds, and modal containers to subtly differentiate them from the main background.
+Border/Label Color: #F2F2F2 (Light Gray/Off White)
+Use this for borders and labels on input fields or forms, as well as subtle highlights for container elements.
+4. Replacement Accent Colors
+Secondary Accent (e.g., secondary buttons or icons): #FFD700 (Gold/Yellow)
+This gold tone provides a vibrant pop for elements that should stand out without overwhelming the main call-to-action items.
+Error and Alert Notifications: #FF4E50 (Vibrant Red)
+A bold choice for warnings or error messages, designed to quickly draw the user's attention to critical alerts.
+Success or Positive Feedback: #3DDC97 (Mint Green)
+Use this mint green for success notifications, confirmations, or positive messages to convey a welcoming and fresh tone.
