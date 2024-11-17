@@ -1,10 +1,10 @@
 import React, { useState } from 'react';
 import './SignIn.css'; // Assuming you're putting custom CSS in this file
-import { auth, googleProvider } from '../config/firebase'
+import { auth, googleProvider } from '../config/firebase';
 import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import { FcGoogle } from 'react-icons/fc'; // Google Icon
 
 function SignIn() {
-    // State management for form inputs
     const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
     const [phone, setPhone] = useState('');
@@ -12,19 +12,15 @@ function SignIn() {
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
-    // Handle form submission
     const handleSignUp = async (e) => {
         e.preventDefault();
         setError('');
-
-        // Check if passwords match
         if (password !== confirmPassword) {
             setError('Passwords do not match');
             return;
         }
 
         try {
-            // Firebase sign-up with email and password
             await createUserWithEmailAndPassword(auth, email, password);
             alert('Sign-up successful!');
         } catch (error) {
@@ -37,14 +33,7 @@ function SignIn() {
         e.preventDefault();
         setError('');
 
-        // Check if passwords match
-        if (password !== confirmPassword) {
-            setError('Passwords do not match');
-            return;
-        }
-
         try {
-            // Firebase sign-up with email and password
             await signInWithPopup(auth, googleProvider);
             alert('Sign-up successful!');
         } catch (error) {
@@ -53,11 +42,9 @@ function SignIn() {
         }
     };
 
-
     return (
         <div className="sign-in-container d-flex justify-content-center align-items-center">
             <div className="form-container p-4">
-                {/* Image placeholder */}
                 <div className="image-placeholder mb-3">
                     <img src="https://via.placeholder.com/100" alt="Sign In" className="img-fluid" />
                 </div>
@@ -132,13 +119,17 @@ function SignIn() {
                             Sign Up
                         </button>
                     </div>
-
-                    <div className="text-center mt-3">
-                        <button onClick={handleGoogleSignIn} className="btn btn-danger custom-btn-google">
-                            Log in with Google
-                        </button>
-                    </div>
                 </form>
+
+                <div className="text-center mt-3">
+                    <button
+                        onClick={handleGoogleSignIn}
+                        className="btn custom-btn-google d-flex align-items-center justify-content-center"
+                    >
+                        Log in with   
+                        <FcGoogle className="mx-2" size={20} />
+                    </button>
+                </div>
 
                 <div className="text-center mt-3">
                     <a href="/login" className="forgot-password">Already have an account? Log in</a>
