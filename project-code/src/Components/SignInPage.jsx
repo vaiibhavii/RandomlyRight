@@ -126,7 +126,7 @@ function SignIn() {
                         onClick={handleGoogleSignIn}
                         className="btn custom-btn-google d-flex align-items-center justify-content-center"
                     >
-                        Log in with   
+                        Sign in with Google  
                         <FcGoogle className="mx-2" size={20} />
                     </button>
                 </div>
