@@ -1,8 +1,26 @@
+/* Development Banner */
+.development-banner {
+  color: #2C2A2D;
+  /* Dark Text for contrast */
+  padding: 10px 0;
+  font-size: 1rem;
+  font-weight: bold;
+  position: fixed;
+  top: 0;
+  width: 100%;
+  z-index: 1050;
+  /* Ensure it stays above the navbar */
+  box-shadow: 0px 4px 6px rgba(0, 0, 0, 0.1);
+  /* Subtle shadow for emphasis */
+}
+
 /* Navbar Global Styles */
 .navbar {
   border-bottom: 1px solid #B0B0B0;
   background-color: #2C2A2D;
   /* Base Dark Color for navbar background */
+  margin-top: 30px;
+  /* Add space to push navbar below the banner */
 }
 
 /* Logo Styling */
