@@ -12,11 +12,11 @@ const Homepage = () => {
 
       {/* Section 2: Button */}
       <section className="button-section text-center">
-        <button className="btn btn-primary btn-lg btn-cta">Let the Party Begin 🎉🚀</button>
+        <a href="/advices" className="btn btn-primary btn-lg btn-cta">Let the Party Begin 🎉🚀</a>
       </section>
 
 
-      {/* Section 3: Benefits Section */}
+      {/* Section 3: Benefits Section */} 
       <section className="benefits-section container">
         <div className="row text-center">
           <div className="col-md-4">
