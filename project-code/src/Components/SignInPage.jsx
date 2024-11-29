@@ -1,32 +1,18 @@
-import React, { useState, useEffect } from 'react';
-import './SignIn.css'; // Assuming you're putting custom CSS in this file
-import { auth, googleProvider } from '../config/firebase';
-import { createUserWithEmailAndPassword, signInWithPopup } from 'firebase/auth';
+import React, { useState } from 'react';
+import './SignIn.css';
+import { auth } from '../config/firebase';
+import { createUserWithEmailAndPassword, sendEmailVerification } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { FcGoogle } from 'react-icons/fc';  // Google icon
-import { useAuth } from '../context/AuthContext';
 
 function SignIn() {
-    // State management for form inputs
-    const [username, setUsername] = useState('');
     const [email, setEmail] = useState('');
-    const [phone, setPhone] = useState('');
     const [password, setPassword] = useState('');
     const [confirmPassword, setConfirmPassword] = useState('');
     const [error, setError] = useState('');
 
-    const { currentUser } = useAuth();
     const navigate = useNavigate();
 
-    useEffect(() => {
-        if (currentUser) {
-            navigate('/'); // Redirect to home if logged in
-        }
-    }, [currentUser, navigate]);
-
-    // Hook to navigate programmatically
-
-    // Handle form submission
+    // Handle form submission for sign-up
     const handleSignUp = async (e) => {
         e.preventDefault();
         setError('');
@@ -38,9 +24,15 @@ function SignIn() {
         }
 
         try {
-            await createUserWithEmailAndPassword(auth, email, password);
-            alert('Sign-up successful!');
-            navigate('/'); // Redirect to the home page after successful sign-up
+            // Create user account with email and password
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+
+            // Send email verification
+            await sendEmailVerification(userCredential.user);
+            alert('Account created! Please verify your email.');
+
+            // Redirect to additional details page
+            navigate('/additional-details'); // Replace with your actual route
         } catch (error) {
             if (error.code === 'auth/email-already-in-use') {
                 setError('An account with this email already exists. Please log in.');
@@ -51,40 +43,14 @@ function SignIn() {
         }
     };
 
-    const handleGoogleSignIn = async () => {
-        setError('');
-
-        try {
-            // Firebase Google sign-in
-            await signInWithPopup(auth, googleProvider);
-            alert('Sign-up successful!');
-            navigate('/'); // Redirect to the home page
-        } catch (error) {
-            console.error('Error signing in with Google:', error.message);
-            setError(error.message);
-        }
-    };
-
     return (
         <div className="sign-in-container d-flex justify-content-center align-items-center">
             <div className="form-container p-4">
-                <h2 className="text-center text-white mb-4">Sign In</h2>
+                <h2 className="text-center text-white mb-4">Sign Up</h2>
 
                 {error && <div className="alert alert-danger text-center">{error}</div>}
 
                 <form onSubmit={handleSignUp}>
-                    <div className="form-group mb-3">
-                        <label htmlFor="username" className="form-label">Username</label>
-                        <input
-                            type="text"
-                            className="form-control"
-                            id="username"
-                            placeholder="Enter your username"
-                            value={username}
-                            onChange={(e) => setUsername(e.target.value)}
-                        />
-                    </div>
-
                     <div className="form-group mb-3">
                         <label htmlFor="email" className="form-label">Email</label>
                         <input
@@ -94,18 +60,6 @@ function SignIn() {
                             placeholder="Enter your email"
                             value={email}
                             onChange={(e) => setEmail(e.target.value)}
-                        />
-                    </div>
-
-                    <div className="form-group mb-3">
-                        <label htmlFor="phone" className="form-label">Phone Number</label>
-                        <input
-                            type="tel"
-                            className="form-control"
-                            id="phone"
-                            placeholder="Enter your phone number"
-                            value={phone}
-                            onChange={(e) => setPhone(e.target.value)}
                         />
                     </div>
 
@@ -136,17 +90,6 @@ function SignIn() {
                     <div className="d-flex justify-content-center">
                         <button type="submit" className="btn btn-primary custom-btn-primary">
                             Sign Up
-                        </button>
-                    </div>
-
-                    <div className="d-flex justify-content-center mt-3">
-                        <button
-                            type="button"
-                            className="btn btn-light custom-btn-google d-flex align-items-center"
-                            onClick={handleGoogleSignIn}
-                        >
-                            Sign in with Google
-                            <FcGoogle className="mx-2" />
                         </button>
                     </div>
                 </form>
