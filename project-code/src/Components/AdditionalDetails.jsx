@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from 'react';
 import './AdditionalDetails.css';
 import { db, auth } from '../config/firebase'; // Firestore and auth import
-import { doc, getDoc, setDoc } from 'firebase/firestore'; // Firestore methods
+import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'; // Firestore methods
 import { useNavigate } from 'react-router-dom';
 
 const AdditionalDetails = () => {
@@ -82,7 +82,8 @@ const AdditionalDetails = () => {
                     phone: phone,
                     emailVerified: emailVerified,
                     email: user.email, // Store the user's email
-                    uid: user.uid // Store the user's UID for reference
+                    uid: user.uid,// Store the user's UID for reference
+                    createdAt: serverTimestamp() // Store the time at which account was created
                 });
 
                 // Save the username to the 'usernames' collection to avoid duplication

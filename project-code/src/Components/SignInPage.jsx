@@ -25,7 +25,8 @@ function SignIn() {
 
         try {
             // Create user account with email and password
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            const date = new Date();
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password, date);
 
             // Send email verification
             await sendEmailVerification(userCredential.user);
