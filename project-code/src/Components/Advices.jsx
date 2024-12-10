@@ -5,11 +5,20 @@ import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
 import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
+import { useLoading } from '../context/LoadingContext';
 
 const Advices = () => {
   const [advice, setAdvice] = useState('');
   const [autoFetch, setAutoFetch] = useState(false);
   const navigate = useNavigate();
+
+  const { setLoading } = useLoading();
+
+  useEffect(() => {
+    setLoading(true); // Show the loader
+    const timer = setTimeout(() => setLoading(false), 2000); // Simulate loading
+    return () => clearTimeout(timer); // Cleanup on unmount
+  }, [setLoading]);
 
   // Check if user is authenticated
   useEffect(() => {
