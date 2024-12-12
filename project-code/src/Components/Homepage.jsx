@@ -2,6 +2,9 @@ import React, { useEffect, useState } from "react";
 import "./Homepage.css";
 import { useLoading } from "../context/LoadingContext";
 import TestimonialsCarousel from "./Testimonials";
+import anonymity from "../Assets/anonymity.jpg"
+import community from "../Assets/community.jpg"
+import reaction1 from "../Assets/reaction1.png"
 
 const Homepage = () => {
   const { setLoading } = useLoading();
@@ -33,18 +36,21 @@ const Homepage = () => {
         <div className="row text-center">
           <div className="col-md-4">
             <div className="benefit-block">
+              <img src={anonymity} className="benefit-image w-50"></img>
               <h3 className="benefit-title">Anonymity 🔶</h3>
               <p className="benefit-description">Share advice without revealing your identity. 😐</p>
             </div>
           </div>
           <div className="col-md-4">
             <div className="benefit-block">
+            <img src={community} className="benefit-image w-50"></img>
               <h3 className="benefit-title">Community 🌍</h3>
               <p className="benefit-description">Join a diverse community of advice-givers and seekers. 🤝</p>
             </div>
           </div>
           <div className="col-md-4">
             <div className="benefit-block">
+            <img src={reaction1} className="benefit-image w-50"></img>
               <h3 className="benefit-title">Reactions ❤️👍</h3>
               <p className="benefit-description">Get feedback with reactions to advice shared. 💬👁</p>
             </div>
