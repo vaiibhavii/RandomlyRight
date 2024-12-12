@@ -17,10 +17,12 @@ import TermsOfService from './Components/TermsOfServices';
 import PrivacyPolicy from './Components/PrivacyPolicy';
 import Advices from './Components/Advices';
 import AdditionalDetails from './Components/AdditionalDetails';
+import ProfilePage from './Components/ProfilePage';
 
 function App() {
   return (
     <AuthProvider>
+
       <LoadingProvider> {/* Wrap everything with LoadingProvider */}
         <Router>
           <div className="App">
@@ -42,6 +44,7 @@ function App() {
           </div>
         </Router>
       </LoadingProvider>
+
     </AuthProvider>
   );
 }
