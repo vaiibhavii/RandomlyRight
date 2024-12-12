@@ -63,7 +63,7 @@
 
 /* Section 4: Social Media Section */
 .social-media-section {
-  background-color: #2C2A2D;
+  background-color: #3A3A3D;
   padding: 60px 20px;
   color: #FFFFFF;
 }
@@ -85,16 +85,16 @@
 
 /* Testimonials Carousel Section */
 .testimonials-carousel {
-  background-color: #3A3A3D;
   /* Darker Gray */
   color: #FFFFFF;
   /* Pure White */
   padding: 20px;
-  margin: 20px 0;
+  margin: 20px 6em;
   text-align: center;
   border-radius: 10px;
   position: relative;
   overflow: hidden;
+  /* gap: 50px */
 }
 
 .carousel-container {
@@ -114,33 +114,11 @@
   flex: 0 0 100%;
   padding: 20px;
   font-size: 1.2rem;
-  background-color: #000;
+  background-color: #00000088;
   /* Gold */
   border-radius: 10px;
   color: #fff;
   /* Base Dark */
   box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
   text-align: center;
-}
-
-/* Gradient overlay for faded ends */
-.testimonials-carousel::before,
-.testimonials-carousel::after {
-  content: '';
-  position: absolute;
-  top: 0;
-  bottom: 0;
-  width: 50px;
-  z-index: 2;
-  pointer-events: none;
-}
-
-.testimonials-carousel::before {
-  left: 0;
-  background: linear-gradient(to right, #3A3A3D, transparent);
-}
-
-.testimonials-carousel::after {
-  right: 0;
-  background: linear-gradient(to left, #3A3A3D, transparent);
 }
