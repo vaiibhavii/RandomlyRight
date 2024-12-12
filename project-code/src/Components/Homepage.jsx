@@ -1,9 +1,7 @@
-import React, { useEffect } from "react";
-import './Homepage.css'
-import { useLoading } from '../context/LoadingContext';
-
-
-
+import React, { useEffect, useState } from "react";
+import "./Homepage.css";
+import { useLoading } from "../context/LoadingContext";
+import TestimonialsCarousel from "./Testimonials";
 
 const Homepage = () => {
   const { setLoading } = useLoading();
@@ -14,27 +12,29 @@ const Homepage = () => {
     return () => clearTimeout(timer); // Cleanup on unmount
   }, [setLoading]);
 
+
   return (
     <div className="homepage">
       {/* Section 1: Catchy Line */}
       <section className="catchy-line text-center">
         <h1 className="catchy-text">Get the Best Advice, Anytime, Anywhere! 💡✨</h1>
-        <p className="subtext">Anonymous, unbiased, and always available. 🕵️‍♀️💬</p>
+        <p className="subtext">Anonymous, unbiased, and always available. 📭‍♀️💬</p>
       </section>
 
       {/* Section 2: Button */}
       <section className="button-section text-center">
-        <a href="/advices" className="btn btn-primary btn-lg btn-cta">Let the Party Begin 🎉🚀</a>
+        <a href="/advices" className="btn btn-primary btn-lg btn-cta">
+          Let the Party Begin 🎉🚀
+        </a>
       </section>
-
 
       {/* Section 3: Benefits Section */}
       <section className="benefits-section container">
         <div className="row text-center">
           <div className="col-md-4">
             <div className="benefit-block">
-              <h3 className="benefit-title">Anonymity 🕶️</h3>
-              <p className="benefit-description">Share advice without revealing your identity. 🤐</p>
+              <h3 className="benefit-title">Anonymity 🔶</h3>
+              <p className="benefit-description">Share advice without revealing your identity. 😐</p>
             </div>
           </div>
           <div className="col-md-4">
@@ -46,13 +46,19 @@ const Homepage = () => {
           <div className="col-md-4">
             <div className="benefit-block">
               <h3 className="benefit-title">Reactions ❤️👍</h3>
-              <p className="benefit-description">Get feedback with reactions to advice shared. 💬👀</p>
+              <p className="benefit-description">Get feedback with reactions to advice shared. 💬👁</p>
             </div>
           </div>
         </div>
       </section>
 
-      {/* Section 4: Social Media Proofs */}
+      {/* Section 4: Testimonials Carousel */}
+      <section className="testimonials-carousel">
+        <h2 className="text-center">What People Are Saying 🌟</h2>
+        <TestimonialsCarousel />
+      </section>
+
+      {/* Section 5: Social Media Proofs */}
       <section className="social-media-section text-center">
         <h2>Follow Us on Instagram 📸</h2>
         <div className="instagram-frames">
