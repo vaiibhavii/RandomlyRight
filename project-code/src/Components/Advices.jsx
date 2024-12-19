@@ -7,6 +7,8 @@ import { collection, getDocs } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { MdSkipNext, MdReport } from "react-icons/md";
 import { FaShareAlt } from "react-icons/fa";
+import Switch from "react-switch"; // Import the react-switch library
+
 
 const Advices = () => {
   const [advice, setAdvice] = useState('');
@@ -60,7 +62,6 @@ const Advices = () => {
         )}
 
         <div className="reaction-panel">
-
           <button className="reaction-btn">😊</button>
           <button className="reaction-btn">👍</button>
           <button className="reaction-btn">❤️</button>
@@ -69,7 +70,7 @@ const Advices = () => {
         </div>
 
         <div className="button-container">
-          <button className="next-btn" onClick={fetchAdvice} >
+          <button className="next-btn" onClick={fetchAdvice}>
             <MdSkipNext />
           </button>
           <button className="btn btn-share">
@@ -77,25 +78,29 @@ const Advices = () => {
           </button>
         </div>
 
-
-
         <div className="reaction-panel">
-          <button className="btn btn-danger report-btn">Report <MdReport className='fs-4 ms-1' /> </button>
+          <button className="btn btn-danger report-btn">
+            Report <MdReport className="fs-4 ms-1" />
+          </button>
         </div>
 
         <div className="auto-refresh">
           <label>
-            <input
-              type="checkbox"
+            <Switch
+              onChange={(checked) => setAutoFetch(checked)}
               checked={autoFetch}
-              onChange={() => setAutoFetch(!autoFetch)}
+              offColor="#3A3A3D"
+              onColor="#E16A20"
+              checkedIcon={false}
+              uncheckedIcon={false}
+              className="react-switch"
+              height={20}
+              width={48}
             />
-            Auto-refresh advice
+            <span>Auto-refresh advice</span>
           </label>
         </div>
       </div>
-
-
     </div>
   );
 };
