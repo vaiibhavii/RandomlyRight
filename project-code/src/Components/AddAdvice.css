@@ -1,89 +1,129 @@
 /* Page Background */
 .add-advice-page {
-    background-color: #2C2A2D; /* Base Dark Color */
-    color: #FFFFFF; /* Pure White */
-    min-height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    padding: 20px;
-  }
-  
-  /* Form Container */
-  .form-container {
-    background-color: #3A3A3D; /* Darker Gray */
-    border-radius: 10px;
-    padding: 30px;
-    width: 100%;
-    max-width: 500px;
-    box-shadow: 0px 4px 12px rgba(0, 0, 0, 0.5);
-    text-align: center;
-  }
-  
-  /* Form Heading */
-  .form-heading {
-    color: #FFD700; /* Gold */
-    margin-bottom: 20px;
-  }
-  
-  /* Form Labels */
-  .form-label {
-    display: block;
-    color: #FFFFFF; /* Pure White */
-    font-size: 1rem;
-    margin-bottom: 8px;
-    text-align: left;
-  }
-  
-  /* Form Inputs */
-  .form-control {
-    background-color: #3A3A3D; /* Darker Gray */
-    color: #F2F2F2; /* Light Gray */
-    border: 2px solid #FFD700; /* Gold */
-    border-radius: 5px;
-    padding: 10px;
-    margin-bottom: 20px;
-    width: 100%;
-  }
-  
-  .form-control::placeholder {
-    color: #B0B0B0; /* Light Gray Placeholder */
-  }
-  
-  .form-control:focus {
-    border-color: #E16A20; /* Base Vibrant Orange */
-    outline: none;
-  }
-  
-  /* Textarea */
-  .input-advice {
-    height: 100px;
-    resize: none;
-  }
-  
-  /* Button Styles */
-  .btn-submit {
-    background-color: #3DDC97; /* Mint Green */
-    color: #FFFFFF; /* Pure White */
-    border: none;
-    padding: 10px 20px;
-    border-radius: 5px;
-    font-weight: bold;
-    cursor: pointer;
-    transition: background-color 0.3s ease-in-out;
-    width: 100%;
-  }
-  
-  .btn-submit:hover {
-    background-color: #4AE0A7; /* Lighter Mint */
-  }
-  
-  /* Success Message */
-  .success-message {
-    background-color: #3DDC97; /* Mint Green */
-    color: #FFFFFF; /* Pure White */
-    padding: 10px;
-    border-radius: 5px;
-    margin-top: 20px;
-  }
-  
+  background-color: #2C2A2D;
+  /* Base Dark Color */
+  color: #FFFFFF;
+  /* Pure White */
+  min-height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 20px;
+  background: linear-gradient(135deg, #2C2A2D 60%, #3A3A3D);
+  font-family: 'Arial', sans-serif;
+}
+
+/* Form Container */
+.form-container {
+  background-color: #3A3A3D;
+  /* Darker Gray */
+  border-radius: 15px;
+  padding: 40px;
+  width: 100%;
+  max-width: 600px;
+  box-shadow: 0px 6px 15px rgba(0, 0, 0, 0.4);
+  text-align: center;
+}
+
+/* Form Heading */
+.form-heading {
+  color: #FFD700;
+  /* Gold */
+  font-size: 1.8rem;
+  margin-bottom: 10px;
+}
+
+.form-subheading {
+  color: #B0B0B0;
+  /* Light Gray */
+  font-size: 1rem;
+  margin-bottom: 20px;
+}
+
+/* Form Labels */
+.form-label {
+  display: block;
+  color: #FFFFFF;
+  /* Pure White */
+  font-weight: bold;
+  font-size: 1rem;
+  margin-bottom: 8px;
+  text-align: left;
+}
+
+/* Input Fields */
+.form-control {
+  background-color: #3A3A3D;
+  /* Darker Gray */
+  color: #F2F2F2;
+  /* Light Gray */
+  border: 2px solid #FFD700;
+  /* Gold */
+  border-radius: 8px;
+  padding: 12px;
+  margin-bottom: 20px;
+  width: 100%;
+}
+
+.form-control::placeholder {
+  color: #B0B0B0;
+  /* Light Gray Placeholder */
+  font-style: italic;
+}
+
+.form-control:focus {
+  border-color: #E16A20;
+  /* Base Vibrant Orange */
+  outline: none;
+  box-shadow: 0px 0px 8px rgba(225, 106, 32, 0.8);
+  /* Orange Glow */
+}
+
+/* Dropdown Styling */
+.input-category {
+  appearance: none;
+  cursor: pointer;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' fill='%23FFD700' viewBox='0 0 24 24'%3E%3Cpath d='M7 10l5 5 5-5H7z'/%3E%3C/svg%3E");
+  background-repeat: no-repeat;
+  background-position: right 10px center;
+  background-size: 15px;
+}
+
+/* Textarea */
+.input-advice {
+  height: 120px;
+  resize: none;
+}
+
+/* Button Styles */
+.btn-submit {
+  background: linear-gradient(135deg, #3DDC97, #2AB67D);
+  color: #FFFFFF;
+  /* Pure White */
+  border: none;
+  padding: 15px;
+  border-radius: 8px;
+  font-weight: bold;
+  font-size: 1rem;
+  cursor: pointer;
+  transition: background 0.3s ease-in-out, transform 0.2s;
+  width: 100%;
+}
+
+.btn-submit:hover {
+  background: linear-gradient(135deg, #4AE0A7, #3DDC97);
+  transform: translateY(-2px);
+}
+
+/* Success Message */
+.success-message {
+  background-color: #3DDC97;
+  /* Mint Green */
+  color: #FFFFFF;
+  /* Pure White */
+  padding: 15px;
+  border-radius: 8px;
+  margin-top: 20px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.3);
+  font-size: 1rem;
+}
