@@ -6,8 +6,10 @@ import { useNavigate } from 'react-router-dom';
 import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { MdSkipNext, MdReport } from 'react-icons/md';
-import { FaShareAlt } from 'react-icons/fa';
+import { FaShareAlt, FaPlus } from 'react-icons/fa';
 import Switch from 'react-switch';
+import { toPng } from 'html-to-image';
+
 
 const Advices = () => {
   const [advice, setAdvice] = useState('');
@@ -64,7 +66,7 @@ const Advices = () => {
 
     try {
       const adviceDoc = doc(db, 'advices', adviceId);
-      const userDoc = doc(db, 'users', user.uid); // User's document in Firestore
+      const userDoc = doc(db, 'users', user.uid);
       const updatedReactions = { ...reactions };
 
       // Remove the previous reaction
@@ -88,13 +90,79 @@ const Advices = () => {
         reactedAdvices: arrayUnion({ adviceId, reaction: newReaction }),
       });
 
-      // Update state
       setReactions(updatedReactions);
       setUserReaction(newReaction);
     } catch (error) {
       console.error('Error updating reaction:', error);
     }
   };
+
+  // Generate and share an image of the advice
+  const handleShare = () => {
+    const sectionToCapture = document.querySelector('.advice-text');
+    if (!sectionToCapture) return;
+
+    toPng(sectionToCapture, { cacheBust: true })
+      .then((dataUrl) => {
+        const img = new Image();
+        img.src = dataUrl;
+
+        img.onload = () => {
+          const canvas = document.createElement('canvas');
+          const ctx = canvas.getContext('2d');
+
+          // Set canvas dimensions
+          canvas.width = 1280;
+          canvas.height = 720;
+
+          // Fill background
+          ctx.fillStyle = '#000'; // Black background
+          ctx.fillRect(0, 0, canvas.width, canvas.height);
+
+          // Center the advice text
+          const adviceX = (canvas.width - img.width) / 2;
+          const adviceY = (canvas.height - img.height) / 2;
+          ctx.drawImage(img, adviceX, adviceY);
+
+          // Add "Visit RandomlyRight for more!!" text above the logo
+          ctx.font = '24px Arial';
+          ctx.fillStyle = '#FFFFFF';
+          ctx.textAlign = 'center';
+          ctx.fillText('Visit RandomlyRight for more!!', canvas.width / 2, canvas.height - 100);
+
+          // Load and draw the logo
+          const logo = new Image();
+          logo.src = '../Assets/Logo.png'; // Replace with correct path or use raw GitHub URL
+
+          logo.onload = () => {
+            const logoHeight = 80;
+            const logoWidth = (logo.width / logo.height) * logoHeight;
+
+            const logoX = (canvas.width - logoWidth) / 2;
+            const logoY = canvas.height - logoHeight - 10;
+            ctx.drawImage(logo, logoX, logoY);
+
+            const finalDataUrl = canvas.toDataURL();
+            const link = document.createElement('a');
+            link.download = 'advice_with_text_and_logo.png';
+            link.href = finalDataUrl;
+            link.click();
+          };
+
+          logo.onerror = () => {
+            console.error('Error loading logo image.');
+          };
+        };
+
+        img.onerror = () => {
+          console.error('Error loading generated advice image.');
+        };
+      })
+      .catch((error) => {
+        console.error('Error generating image:', error);
+      });
+  };
+
 
   useEffect(() => {
     fetchAdvice();
@@ -132,16 +200,19 @@ const Advices = () => {
           ))}
         </div>
 
-        <div className="button-container">
+        <div className="button-container1">
           <button className="next-btn" onClick={fetchAdvice}>
             <MdSkipNext />
           </button>
-          <button className="btn btn-share">
+          <button className="btn btn-share" onClick={handleShare}>
             <FaShareAlt />
           </button>
         </div>
 
-        <div className="reaction-panel">
+        <div className="button-container2">
+          <a className="btn btn-add-advice" href="/add-advice">
+            Add Advice <FaPlus />
+          </a>
           <button className="btn btn-danger report-btn">
             Report <MdReport className="fs-4 ms-1" />
           </button>

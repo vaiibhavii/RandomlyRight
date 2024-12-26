@@ -27,7 +27,7 @@ const Navbar = () => {
     try {
       await signOut(auth);
       // alert('Logged out successfully!');
-      toast.success('Login Successful',
+      toast.success('Logout Successful',
         {
           style: {
             border: '1px solid #713200',
@@ -52,9 +52,11 @@ const Navbar = () => {
     <>
       <Toaster />
       {/* Development Banner */}
+      {/*
       <div className="development-banner text-center bg-danger">
         This project is still under development. 🚧
       </div>
+      */}
 
       {/* Navbar */}
       <nav className="navbar navbar-expand-lg navbar-dark">
