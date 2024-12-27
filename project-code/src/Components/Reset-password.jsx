@@ -3,7 +3,6 @@ import './ResetPassword.css';
 import { sendPasswordResetEmail } from 'firebase/auth';
 import { auth, db } from '../config/firebase'; // Ensure db is imported for Firestore
 import { collection, query, where, getDocs } from 'firebase/firestore'; // Firestore functions
-// import ResetPasswordImage from '../Assets/Reset-password.png'; // Correct path to your image
 
 const ResetPassword = () => {
     const [email, setEmail] = useState('');
