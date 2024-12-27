@@ -4,6 +4,14 @@ import { auth, db } from '../config/firebase';
 import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
 import { toast } from 'react-hot-toast';
 
+const reactionMap = {
+  smile: '😊',
+  thumbsUp: '👍',
+  heart: '❤️',
+  laugh: '😂',
+  wow: '😮',
+};
+
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [reactedAdvices, setReactedAdvices] = useState([]);
@@ -33,12 +41,12 @@ const ProfilePage = () => {
                   if (adviceSnapshot.exists()) {
                     return {
                       adviceText: adviceSnapshot.data().advice,
-                      reaction,
+                      reaction: reactionMap[reaction] || reaction, // Use emoji or fallback to name
                     };
                   } else {
                     return {
                       adviceText: 'Advice not found',
-                      reaction,
+                      reaction: reactionMap[reaction] || reaction,
                     };
                   }
                 })
