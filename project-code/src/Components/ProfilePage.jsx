@@ -1,11 +1,13 @@
 import React, { useState, useEffect } from 'react';
 import './ProfilePage.css';
 import { auth, db } from '../config/firebase';
-import { doc, getDoc } from 'firebase/firestore';
+import { doc, getDoc, collection, getDocs, query, where } from 'firebase/firestore';
+import { toast } from 'react-hot-toast';
 
 const ProfilePage = () => {
   const [user, setUser] = useState(null);
   const [reactedAdvices, setReactedAdvices] = useState([]);
+  const [addedAdvices, setAddedAdvices] = useState([]);
   const [loading, setLoading] = useState(true);
 
   useEffect(() => {
@@ -21,7 +23,8 @@ const ProfilePage = () => {
             const userData = userSnapshot.data();
             setUser(userData);
 
-            if (userData.reactedAdvices && userData.reactedAdvices.length > 0) {
+            // Fetch Reacted Advice
+            if (userData.reactedAdvices?.length) {
               const advices = await Promise.all(
                 userData.reactedAdvices.map(async ({ adviceId, reaction }) => {
                   const adviceDoc = doc(db, 'advices', adviceId);
@@ -42,14 +45,27 @@ const ProfilePage = () => {
               );
               setReactedAdvices(advices);
             }
+
+            // Fetch Added Advice
+            const addedAdviceQuery = query(
+              collection(db, 'advices'),
+              where('source', '==', userData.email)
+            );
+            const addedAdviceSnapshot = await getDocs(addedAdviceQuery);
+            const addedAdviceList = addedAdviceSnapshot.docs.map((doc) => ({
+              ...doc.data(),
+              addedDate: doc.data().addedDate?.toDate() || new Date(),
+            }));
+            setAddedAdvices(addedAdviceList);
           } else {
-            console.error('No such user document exists in the database.');
+            toast.error('No user document found.');
           }
         } else {
-          console.error('No authenticated user found.');
+          toast.error('No authenticated user found.');
         }
       } catch (error) {
-        console.error('Error fetching user details:', error);
+        toast.error('Error fetching profile details.');
+        console.error('Error fetching profile details:', error);
       } finally {
         setLoading(false);
       }
@@ -98,6 +114,26 @@ const ProfilePage = () => {
             </ul>
           ) : (
             <p className="no-advice">No reacted advice available.</p>
+          )}
+        </div>
+
+        {/* Added Advice */}
+        <div className="added-advice">
+          <h2 className="section-title">Your Added Advice</h2>
+          {addedAdvices.length > 0 ? (
+            <ul className="advice-list">
+              {addedAdvices.map((advice, index) => (
+                <li key={index} className="advice-item">
+                  <p>{advice.advice}</p>
+                  <span className="category-tag">Category: {advice.category}</span>
+                  <span className="date-tag">
+                    Added on: {new Date(advice.addedDate).toLocaleDateString()}
+                  </span>
+                </li>
+              ))}
+            </ul>
+          ) : (
+            <p className="no-advice">No advice added yet.</p>
           )}
         </div>
       </div>
