@@ -9,10 +9,7 @@
     justify-content: space-between;
     align-items: center;
     flex-wrap: wrap;
-    position: fixed;
-    bottom: 0;
     width: 100%;
-    box-shadow: 0 -2px 8px rgba(0, 0, 0, 0.5);
     z-index: 1000;
 }
 
