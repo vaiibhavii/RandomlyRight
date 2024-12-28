@@ -10,6 +10,13 @@ import { FaShareAlt, FaPlus } from 'react-icons/fa';
 import Switch from 'react-switch';
 import { toPng } from 'html-to-image';
 
+const questions = [
+  "How do you typically handle stress?",
+  "What's your approach to decision-making?",
+  "How do you prefer to interact with others?",
+  "What motivates you the most?",
+  "How do you deal with change?"
+];
 
 const Advices = () => {
   const [advice, setAdvice] = useState('');
@@ -124,34 +131,18 @@ const Advices = () => {
           const adviceY = (canvas.height - img.height) / 2;
           ctx.drawImage(img, adviceX, adviceY);
 
-          // Add "Visit RandomlyRight for more!!" text above the logo
+          // Add "Visit RandomlyRight for more!!" text
           ctx.font = '24px Arial';
           ctx.fillStyle = '#FFFFFF';
           ctx.textAlign = 'center';
-          ctx.fillText('Visit RandomlyRight for more!!', canvas.width / 2, canvas.height - 100);
+          ctx.fillText('Visit RandomlyRight for more!!', canvas.width / 2, canvas.height - 50);
 
-          // Load and draw the logo
-          const logo = new Image();
-          logo.src = '../Assets/Logo.png'; // Replace with correct path or use raw GitHub URL
-
-          logo.onload = () => {
-            const logoHeight = 80;
-            const logoWidth = (logo.width / logo.height) * logoHeight;
-
-            const logoX = (canvas.width - logoWidth) / 2;
-            const logoY = canvas.height - logoHeight - 10;
-            ctx.drawImage(logo, logoX, logoY);
-
-            const finalDataUrl = canvas.toDataURL();
-            const link = document.createElement('a');
-            link.download = 'advice_with_text_and_logo.png';
-            link.href = finalDataUrl;
-            link.click();
-          };
-
-          logo.onerror = () => {
-            console.error('Error loading logo image.');
-          };
+          // Generate and download the final image
+          const finalDataUrl = canvas.toDataURL();
+          const link = document.createElement('a');
+          link.download = 'advice_with_text.png';
+          link.href = finalDataUrl;
+          link.click();
         };
 
         img.onerror = () => {
@@ -162,6 +153,7 @@ const Advices = () => {
         console.error('Error generating image:', error);
       });
   };
+
 
 
   useEffect(() => {
@@ -213,9 +205,9 @@ const Advices = () => {
           <a className="btn btn-add-advice" href="/add-advice">
             Add Advice <FaPlus />
           </a>
-          <button className="btn btn-danger report-btn">
+          <a className="btn btn-danger report-btn" href='/contact'>
             Report <MdReport className="fs-4 ms-1" />
-          </button>
+          </a>
         </div>
 
         <div className="auto-refresh">
@@ -235,7 +227,7 @@ const Advices = () => {
           </label>
         </div>
       </div>
-    </div>
+    </div >
   );
 };
 
