@@ -11,6 +11,7 @@ import Switch from 'react-switch';
 import { toPng } from 'html-to-image';
 import bgforShare from '../Assets/SignUp_LogIn_BG.png';
 import bgforSharewithLogo from '../Assets/Logo.png';
+import toast, { Toaster } from 'react-hot-toast';
 
 const questions = [
   "How do you typically handle stress?",
@@ -115,6 +116,7 @@ const Advices = () => {
       .then((dataUrl) => {
         const adviceImage = new Image();
         adviceImage.src = dataUrl;
+        toast.success('Image Downloaded')
 
         adviceImage.onload = () => {
           const canvas = document.createElement('canvas');
@@ -209,7 +211,7 @@ const Advices = () => {
             </button>
           ))}
         </div>
-
+        <Toaster />
         <div className="button-container1">
           <button className="next-btn" onClick={fetchAdvice}>
             <MdSkipNext />
