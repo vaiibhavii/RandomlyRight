@@ -6,6 +6,7 @@ import { useNavigate } from 'react-router-dom';
 import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
 import toast, { Toaster } from 'react-hot-toast';
 import logo from '../Assets/Logo.png'
+import { IoMdHome, IoMdInformationCircle, IoMdContact } from "react-icons/io";
 
 
 const Navbar = () => {
@@ -83,13 +84,17 @@ const Navbar = () => {
           <div className="collapse navbar-collapse justify-content-center" id="navbarNav">
             <ul className="navbar-nav">
               <li className="nav-item d-flex align-items-center justify-content-center">
-                <a className="nav-link" href="/">Home</a>
+                <a className="nav-link d-flex align-items-center justify-content-center" href="/">
+                  <IoMdHome className='me-1' />Home
+                </a>
               </li>
               <li className="nav-item d-flex align-items-center justify-content-center">
-                <a className="nav-link" href="/about">About</a>
+                <a className="nav-link d-flex align-items-center justify-content-center" href="/about">
+                  <IoMdInformationCircle className='me-1' />About</a>
               </li>
               <li className="nav-item d-flex align-items-center justify-content-center">
-                <a className="nav-link" href="/contact">Contact</a>
+                <a className="nav-link d-flex align-items-center justify-content-center" href="/contact">
+                  <IoMdContact className='me-1' />Contact</a>
               </li>
             </ul>
           </div>
