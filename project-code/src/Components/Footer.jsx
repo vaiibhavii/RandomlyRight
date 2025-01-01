@@ -51,6 +51,7 @@ const Footer = () => {
 
               <li><a href="/termsofservice">Terms of Service</a></li>
               <li><a href="/privacy-policy">Privacy Policy</a></li>
+              <li><a href="../" target='_blank'>Documentation</a></li>
             </ul>
           </div>
         </div>
