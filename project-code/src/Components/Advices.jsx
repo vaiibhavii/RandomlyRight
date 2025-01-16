@@ -3,7 +3,7 @@ import './Advices.css';
 import { auth } from '../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove } from 'firebase/firestore';
+import { collection, getDocs, doc, updateDoc, arrayUnion, arrayRemove, where, query } from 'firebase/firestore';
 import { db } from '../config/firebase';
 import { MdSkipNext, MdReport } from 'react-icons/md';
 import { FaShareAlt, FaPlus } from 'react-icons/fa';
@@ -46,7 +46,8 @@ const Advices = () => {
     try {
       setLoading(true);
       const adviceCollection = collection(db, 'advices');
-      const adviceSnapshot = await getDocs(adviceCollection);
+      const approvedAdviceQuery = query(adviceCollection, where('status', '==', 'approved'));
+      const adviceSnapshot = await getDocs(approvedAdviceQuery);
       const adviceList = adviceSnapshot.docs.map((doc) => ({
         id: doc.id,
         ...doc.data(),
