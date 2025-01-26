@@ -49,7 +49,7 @@ function App() {
               <Route path='/add-advice' element={<AddAdvice />} />
             </Routes>
             <Footer />
-            <SubscribeStrip />
+            {/* <SubscribeStrip /> */}
           </div>
         </Router>
       </LoadingProvider>
