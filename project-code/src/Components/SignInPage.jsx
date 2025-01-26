@@ -21,7 +21,10 @@ function SignIn() {
         }
 
         try {
-            const userCredential = await createUserWithEmailAndPassword(auth, email, password);
+            // Create user account with email and password
+            const date = new Date();
+            const userCredential = await createUserWithEmailAndPassword(auth, email, password, date);
+            // Send email verification            
             await sendEmailVerification(userCredential.user);
             alert('Account created! Please verify your email.');
             navigate('/additional-details');
