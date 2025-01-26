@@ -75,6 +75,7 @@ function SignIn() {
                             value={confirmPassword}
                             onChange={(e) => setConfirmPassword(e.target.value)}
                         />
+                        <p className='text-light'>Min. 8 characters, 1 letter, 1 number and 1 special character</p>
                     </div>
                     <div className="d-flex justify-content-center">
                         <button type="submit" className="btn btn-primary custom-btn-primary">Sign Up</button>
