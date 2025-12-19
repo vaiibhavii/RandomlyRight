@@ -36,7 +36,9 @@ spec:
         
         REGISTRY_HOST = 'nexus.imcc.com'
         REGISTRY_URL = 'http://nexus.imcc.com'
-        REGISTRY_CREDENTIALS_ID = 'student'
+        // Hardcoding credentials since ID 'student' was missing
+        REGISTRY_USER = 'student'
+        REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
         
         SONAR_HOST_URL = 'http://sonarqube.imcc.com/'
         
@@ -56,16 +58,15 @@ spec:
                 container('sonar') {
                     script {
                         echo "Starting Code Quality Analysis..."
-                        withCredentials([usernamePassword(credentialsId: 'student', passwordVariable: 'SONAR_PASSWORD', usernameVariable: 'SONAR_LOGIN')]) {
-                            sh """
-                                sonar-scanner \
-                                -Dsonar.projectKey=randomlyright-${ROLL_NO} \
-                                -Dsonar.sources=project-code/src \
-                                -Dsonar.host.url=${SONAR_HOST_URL} \
-                                -Dsonar.login=student \
-                                -Dsonar.password=Imccstudent@2025
-                            """
-                        }
+                        // Using hardcoded creds from environment or properties file
+                        sh """
+                            sonar-scanner \
+                            -Dsonar.projectKey=randomlyright-${ROLL_NO} \
+                            -Dsonar.sources=project-code/src \
+                            -Dsonar.host.url=${SONAR_HOST_URL} \
+                            -Dsonar.login=student \
+                            -Dsonar.password=Imccstudent@2025
+                        """
                     }
                 }
             }
@@ -76,9 +77,7 @@ spec:
                 container('dind') {
                     script {
                         echo "Building Docker image..."
-                        // Wait for Docker to be ready
                         sh 'while ! docker info > /dev/null 2>&1; do echo "Waiting for Docker..."; sleep 1; done'
-                        
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     }
                 }
@@ -90,10 +89,8 @@ spec:
                 container('dind') {
                     script {
                         echo "Pushing image to Nexus..."
-                        // Login manually since 'docker.withRegistry' might fail in dind without plugin config
-                        withCredentials([usernamePassword(credentialsId: "${REGISTRY_CREDENTIALS_ID}", passwordVariable: 'PASS', usernameVariable: 'USER')]) {
-                            sh "echo \$PASS | docker login -u \$USER --password-stdin ${REGISTRY_URL}"
-                        }
+                        // Manual Login with hardcoded credentials
+                        sh "echo ${REGISTRY_PASS} | docker login -u ${REGISTRY_USER} --password-stdin ${REGISTRY_URL}"
 
                         sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
                         sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_HOST}/${IMAGE_NAME}:latest"
@@ -107,15 +104,13 @@ spec:
 
         stage('Deploy to Kubernetes') {
             steps {
-                container('jnlp') { // Use the main agent for kubectl (usually pre-installed or mounted)
+                container('jnlp') { 
                     script {
                         echo "Deploying to Namespace: ${NAMESPACE}"
                         
                         sh "sed -i 's|image: .*|image: ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}"
                         sh "sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}"
 
-                        // Try to use kubectl. If missing in JNLP, we might need another container, 
-                        // but standard college setups usually have kubectl in the base agent.
                         sh "kubectl apply -f k8s/ -n ${NAMESPACE}"
                         sh "kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE}"
                     }
