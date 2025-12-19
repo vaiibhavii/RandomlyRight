@@ -1,0 +1,19 @@
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: randomlyright-ingress
+  namespace: "2401108"
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /
+spec:
+  rules:
+    - host: randomlyright-2401108.local # Change this to your actual DNS if provided (e.g., node-ip.nip.io)
+      http:
+        paths:
+          - path: /
+            pathType: Prefix
+            backend:
+              service:
+                name: randomlyright-service
+                port:
+                  number: 80

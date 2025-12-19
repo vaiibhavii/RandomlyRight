@@ -1,0 +1,13 @@
+apiVersion: v1
+kind: Service
+metadata:
+  name: randomlyright-service
+  namespace: "2401108"
+spec:
+  selector:
+    app: randomlyright-2401108
+  ports:
+    - protocol: TCP
+      port: 80                # This is the port Ingress talks to
+      targetPort: 80          # WARNING: Verify this matches your Dockerfile (e.g., 3000?)
+  type: ClusterIP             # Safer for shared clusters than NodePort

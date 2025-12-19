@@ -1,33 +1,29 @@
-# syntax=docker/dockerfile:1
+# Stage 1: Build the React Application
+FROM node:22.13.0-alpine AS builder
 
-ARG NODE_VERSION=22.13.0
-FROM node:${NODE_VERSION}-alpine
+# Set working directory
+WORKDIR /app
 
-# Use production node environment by default
-ENV NODE_ENV=production
-
-# Set working directory inside container
-WORKDIR /usr/src/app
-
-# Copy package files from host's project-code folder
+# Copy package.json and package-lock.json (if available)
 COPY project-code/package*.json ./
 
 # Install dependencies
-RUN npm install --omit=dev
+RUN npm install
 
-# Ensure node_modules and cache folder have proper permissions
-RUN mkdir -p /usr/src/app/node_modules/.cache && \
-    chown -R node:node /usr/src/app/node_modules/.cache
+# Copy the rest of the application code
+COPY project-code/ .
 
+# Build the application
+RUN npm run build
 
-# Copy the rest of the project
-COPY project-code/. .
+# Stage 2: Serve with Nginx
+FROM nginx:alpine
 
-# Run the application as a non-root user
-USER node
+# Copy built assets from builder stage
+COPY --from=builder /app/build /usr/share/nginx/html
 
-# Expose port
-EXPOSE 3000
+# Expose port 80
+EXPOSE 80
 
-# Start the app
-CMD ["npm", "run", "start"]
+# Start Nginx
+CMD ["nginx", "-g", "daemon off;"]

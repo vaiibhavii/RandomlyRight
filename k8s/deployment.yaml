@@ -1,0 +1,43 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: randomlyright-deployment
+  namespace: "2401108"
+  labels:
+    app: randomlyright-2401108
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: randomlyright-2401108
+  template:
+    metadata:
+      labels:
+        app: randomlyright-2401108
+    spec:
+      containers:
+        - name: randomlyright-container
+          image: nexus.college.edu:8082/randomlyright-2401108:latest
+          ports:
+            - containerPort: 80  # WARNING: Ensure your Dockerfile EXPOSES port 80!
+          resources:
+            requests:
+              memory: "128Mi"
+              cpu: "100m"
+            limits:
+              memory: "256Mi"
+              cpu: "500m"
+          imagePullPolicy: Always
+          # --- VOLUME MOUNT GOES HERE (Inside the container block) ---
+          volumeMounts:
+            - mountPath: "/data"
+              name: my-storage
+      
+      imagePullSecrets:
+        - name: nexus-credentials
+      
+      # --- VOLUMES DEFINITION GOES HERE (Same level as containers) ---
+      volumes:
+        - name: my-storage
+          persistentVolumeClaim:
+            claimName: randomlyright-pvc
