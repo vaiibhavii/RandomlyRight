@@ -34,8 +34,8 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = '192.168.20.250:30085'
-        REGISTRY_URL = 'http://192.168.20.250:30085'
+        REGISTRY_HOST = 'nexus-service.default.svc.cluster.local:8081'
+        REGISTRY_URL = 'http://nexus-service.default.svc.cluster.local:8081'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
