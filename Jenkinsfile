@@ -72,6 +72,21 @@ spec:
             }
         }
 
+        stage('Network Check') {
+            steps {
+                script {
+                    echo "--- SEARCHING FOR NEXUS ---"
+                    // Try to reach common Nexus names using curl
+                    // We use '|| true' so the build doesn't stop if one fails
+                    sh 'curl -v --connect-timeout 2 http://nexus-service.default.svc.cluster.local:8081 || true'
+                    sh 'curl -v --connect-timeout 2 http://nexus.default.svc.cluster.local:8081 || true'
+                    sh 'curl -v --connect-timeout 2 http://nexus.jenkins.svc.cluster.local:8081 || true'
+                    sh 'curl -v --connect-timeout 2 http://192.168.20.250:30085 || true'
+                    echo "---------------------------"
+                }
+            }
+        }
+
         stage('Build Docker Image') {
             steps {
                 container('dind') {
