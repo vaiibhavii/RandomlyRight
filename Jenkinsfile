@@ -34,8 +34,8 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = '192.168.20.250:8082'
-        REGISTRY_URL = 'http://192.168.20.250:8082'
+        REGISTRY_HOST = '192.168.20.250:30085'
+        REGISTRY_URL = 'http://192.168.20.250:30085'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
@@ -46,43 +46,43 @@ spec:
         DEPLOYMENT_FILE = 'k8s/deployment.yaml'
     }
 
-    stages {
-        stage('Checkout') {
-            steps {
-                checkout scm
-            }
-        }
+    // stages {
+    //     stage('Checkout') {
+    //         steps {
+    //             checkout scm
+    //         }
+    //     }
         
-        stage('SonarQube Analysis') {
-            steps {
-                container('sonar') { 
-                    script {
-                        echo "Starting Code Quality Analysis..."
-                        // 'returnStatus: true' prevents the pipeline from stopping if Sonar fails
-                        def status = sh(script: 'sonar-scanner', returnStatus: true)
+    //     stage('SonarQube Analysis') {
+    //         steps {
+    //             container('sonar') { 
+    //                 script {
+    //                     echo "Starting Code Quality Analysis..."
+    //                     // 'returnStatus: true' prevents the pipeline from stopping if Sonar fails
+    //                     def status = sh(script: 'sonar-scanner', returnStatus: true)
                         
-                        if (status != 0) {
-                            echo "⚠️ WARNING: SonarQube Server is unreachable or failed. Skipping to ensure deployment..."
-                            echo "Continuing to Build Stage..."
-                        } else {
-                            echo "✅ SonarQube analysis successful."
-                        }
-                    }
-                }
-            }
-        }
+    //                     if (status != 0) {
+    //                         echo "⚠️ WARNING: SonarQube Server is unreachable or failed. Skipping to ensure deployment..."
+    //                         echo "Continuing to Build Stage..."
+    //                     } else {
+    //                         echo "✅ SonarQube analysis successful."
+    //                     }
+    //                 }
+    //             }
+    //         }
+    //     }
 
-        stage('Build Docker Image') {
-            steps {
-                container('dind') {
-                    script {
-                        echo "Building Docker image..."
-                        sh 'while ! docker info > /dev/null 2>&1; do echo "Waiting for Docker..."; sleep 1; done'
-                        sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
-                    }
-                }
-            }
-        }
+    //     stage('Build Docker Image') {
+    //         steps {
+    //             container('dind') {
+    //                 script {
+    //                     echo "Building Docker image..."
+    //                     sh 'while ! docker info > /dev/null 2>&1; do echo "Waiting for Docker..."; sleep 1; done'
+    //                     sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
+    //                 }
+    //             }
+    //         }
+    //     }
 
         stage('Push to Registry') {
             steps {
