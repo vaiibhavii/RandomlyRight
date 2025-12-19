@@ -17,7 +17,7 @@ spec:
     spec:
       containers:
         - name: randomlyright-container
-          image: nexus.imcc.com:8085/randomlyright-2401108:latest
+          image: nexus.imcc.com:8085/my-repository/randomlyright-2401108:latest
           ports:
             - containerPort: 80  # WARNING: Ensure your Dockerfile EXPOSES port 80!
           resources:
