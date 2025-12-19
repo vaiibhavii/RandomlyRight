@@ -84,6 +84,25 @@ spec:
             }
         }
 
+// --- ADD THIS TEMPORARY STAGE ---
+        stage('Find Nexus IP') {
+            steps {
+                script {
+                    echo "--- DEBUGGING NETWORK ---"
+                    // 1. List all services to see if Nexus is running inside the cluster
+                    sh "kubectl get svc --all-namespaces"
+                    
+                    // 2. List nodes to get the Node IP (Host IP)
+                    sh "kubectl get nodes -o wide"
+                    
+                    // 3. Try to ping the DNS if it exists
+                    sh "nslookup nexus.imcc.com || true"
+                    echo "-------------------------"
+                }
+            }
+        }
+        // --------------------------------
+
         stage('Push to Registry') {
             steps {
                 container('dind') {
