@@ -34,8 +34,8 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = '127.0.0.1:30085'
-        REGISTRY_URL = 'http://127.0.0.1:30085'
+        REGISTRY_HOST = '192.168.20.250:8082'
+        REGISTRY_URL = 'http://192.168.20.250:8082'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
@@ -83,25 +83,6 @@ spec:
                 }
             }
         }
-
-// --- ADD THIS TEMPORARY STAGE ---
-        stage('Find Nexus IP') {
-            steps {
-                script {
-                    echo "--- DEBUGGING NETWORK ---"
-                    // 1. List all services to see if Nexus is running inside the cluster
-                    sh "kubectl get svc --all-namespaces"
-                    
-                    // 2. List nodes to get the Node IP (Host IP)
-                    sh "kubectl get nodes -o wide"
-                    
-                    // 3. Try to ping the DNS if it exists
-                    sh "nslookup nexus.imcc.com || true"
-                    echo "-------------------------"
-                }
-            }
-        }
-        // --------------------------------
 
         stage('Push to Registry') {
             steps {
