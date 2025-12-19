@@ -34,8 +34,8 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = '192.168.1.100:8082'
-        REGISTRY_URL = 'http://192.168.1.100:8082'
+        REGISTRY_HOST = '127.0.0.1:30085'
+        REGISTRY_URL = 'http://127.0.0.1:30085'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
