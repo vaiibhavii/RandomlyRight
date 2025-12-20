@@ -38,14 +38,15 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // Updated to match deployment.yaml and using hostAlias
-        REGISTRY_HOST = 'nexus.imcc.com:8085'        
-        REGISTRY_URL = 'http://nexus.imcc.com:8085'
+        // Correct usage of Nexus inside the cluster
+        REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:30085'        
+        REGISTRY_URL = 'http://nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:30085'
+        
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
         
-        SONAR_HOST_URL = 'http://192.168.20.250:9000'
+        SONAR_HOST_URL = 'http://my-sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
         DEPLOYMENT_FILE = 'k8s/deployment.yaml'
@@ -81,34 +82,13 @@ spec:
             steps {
                 container('jnlp') {
                     script {
-                        echo "--- INFRASTRUCTURE DISCOVERY (DEBUG) ---"
-                        // Download kubectl since it's missing in the image
-                        sh '''
-                            curl -LO "https://dl.k8s.io/release/v1.28.0/bin/linux/amd64/kubectl"
-                            chmod +x kubectl
-                        '''
+                        echo "--- HUNTING FOR DOCKER REGISTRY ---"
+                        // Verify connection to the internal Service DNS
+                        sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
                         
-                        echo "1. Cluster Nodes:"
-                        sh './kubectl get nodes -o wide || echo "Failed to get nodes (RBAC?)"'
-                        
-                        echo "2. All Services (Looking for Nexus):"
-                        sh './kubectl get svc -A || echo "Failed to get services (RBAC?)"'
-                        
-                        echo "3. Testing 192.168.20.250 Ports:"
-                        // Scan likely ports
-                        sh 'nc -zv 192.168.20.250 8085 || echo "Port 8085 Closed"'
-                        sh 'nc -zv 192.168.20.250 30082 || echo "Port 30082 Closed"'
-                        sh 'nc -zv 192.168.20.250 8081 || echo "Port 8081 (Nexus UI) Closed"'
-                        sh 'curl -I http://192.168.20.250:5000 || true'
-                        
-                        echo "------------------------------------------"
+                        echo "--- HUNTING FOR SONARQUBE ---"
+                         sh "curl -v --connect-timeout 2 ${SONAR_HOST_URL} || true"
                     }
-                }
-                
-                script {
-                    echo "--- HUNTING FOR DOCKER REGISTRY ---"
-                    // 1. Check the configured Registry URL
-                    sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
                 }
             }
         }
