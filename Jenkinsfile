@@ -8,6 +8,11 @@ metadata:
   labels:
     app: jenkins-agent
 spec:
+  hostAliases:
+  - ip: "192.168.20.250"
+    hostnames:
+    - "nexus.imcc.com"
+    - "sonarqube.imcc.com"
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
@@ -36,7 +41,6 @@ spec:
     command:
     - cat
     tty: true
-    # FIXED: This prevents the 'process apparently never started' exit code -2 error
     securityContext:
       runAsUser: 0
   volumes:
@@ -52,14 +56,12 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // PROVEN: This internal host worked for Push in Build #14
         REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:8085'
         REGISTRY_URL = "http://${REGISTRY_HOST}"
         
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
         
-        // PROVEN: This internal host worked for Sonar in Build #14
         SONAR_HOST_URL = 'http://my-sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
@@ -110,12 +112,19 @@ spec:
             steps {
                 container('kubectl') { 
                     script {
-                        echo "Deploying to Namespace: ${NAMESPACE}"
-                        // Use a single sh block to ensure smooth execution
+                        echo "Preparing Namespace and Deploying..."
                         sh """
+                            # 1. Create the namespace if it doesn't exist (Reference Fix)
+                            kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+
+                            # 2. Update image and namespace in YAML (ensuring quotes for string type)
                             sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}
-                            sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}
+                            sed -i 's|namespace: .*|namespace: \"${NAMESPACE}\"|' ${DEPLOYMENT_FILE}
+
+                            # 3. Apply all k8s manifests
                             kubectl apply -f k8s/ -n ${NAMESPACE}
+                            
+                            # 4. Verify the rollout
                             kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE} --timeout=5m
                         """
                         echo "🚀 100% SUCCESSFUL DEPLOYMENT"
