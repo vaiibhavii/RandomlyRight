@@ -31,12 +31,14 @@ spec:
     command:
     - cat
     tty: true
-  # ADDED: This container is required for the 'Deploy' stage
   - name: kubectl
     image: bitnami/kubectl:latest
     command:
     - cat
     tty: true
+    # FIXED: This prevents the 'process apparently never started' exit code -2 error
+    securityContext:
+      runAsUser: 0
   volumes:
   - name: docker-config
     configMap:
@@ -47,17 +49,17 @@ spec:
 
     environment {
         ROLL_NO = '2401108'
-        IMAGE_NAME = "${ROLL_NO}"
+        IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // PROVEN: This internal host worked for Push in Build #13
+        // PROVEN: This internal host worked for Push in Build #14
         REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:8085'
         REGISTRY_URL = "http://${REGISTRY_HOST}"
         
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
         
-        // PROVEN: This internal host worked for Sonar in Build #13
+        // PROVEN: This internal host worked for Sonar in Build #14
         SONAR_HOST_URL = 'http://my-sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
@@ -84,7 +86,6 @@ spec:
             steps {
                 container('dind') {
                     script {
-                        // Ensure daemon is ready
                         sh 'timeout=60; while ! docker info > /dev/null 2>&1; do echo "Waiting for Docker..."; sleep 1; done'
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     }
@@ -107,16 +108,16 @@ spec:
 
         stage('Deploy to Kubernetes') {
             steps {
-                // FIXED: Use the 'kubectl' container instead of 'jnlp'
                 container('kubectl') { 
                     script {
                         echo "Deploying to Namespace: ${NAMESPACE}"
-                        // PROVEN: Pulling from localhost:30085 is the standard for this lab
-                        sh "sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}"
-                        sh "sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}"
-                        
-                        sh "kubectl apply -f k8s/ -n ${NAMESPACE}"
-                        sh "kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE}"
+                        // Use a single sh block to ensure smooth execution
+                        sh """
+                            sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}
+                            sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}
+                            kubectl apply -f k8s/ -n ${NAMESPACE}
+                            kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE} --timeout=5m
+                        """
                         echo "🚀 100% SUCCESSFUL DEPLOYMENT"
                     }
                 }
