@@ -38,15 +38,13 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // Correct usage of Nexus inside the cluster
-        REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:30085'        
-        REGISTRY_URL = 'http://nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:30085'
-        
+        REGISTRY_HOST = 'nexus.imcc.com:8085'        
+        REGISTRY_URL = 'http://nexus.imcc.com:8085'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
         
-        SONAR_HOST_URL = 'http://my-sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
+        SONAR_HOST_URL = 'http://192.168.20.250:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
         DEPLOYMENT_FILE = 'k8s/deployment.yaml'
@@ -80,15 +78,20 @@ spec:
 
         stage('Network Check') {
             steps {
-                container('jnlp') {
-                    script {
-                        echo "--- HUNTING FOR DOCKER REGISTRY ---"
-                        // Verify connection to the internal Service DNS
-                        sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
-                        
-                        echo "--- HUNTING FOR SONARQUBE ---"
-                         sh "curl -v --connect-timeout 2 ${SONAR_HOST_URL} || true"
-                    }
+                script {
+                    echo "--- HUNTING FOR DOCKER REGISTRY ---"
+                    // 1. Check the configured Registry URL
+                    sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
+                    
+                    // 2. Try the most likely candidate: Nexus Service in Nexus Namespace on Port 8082
+                    sh 'curl -v --connect-timeout 2 http://nexus-service.nexus.svc.cluster.local:8082 || true'
+                    
+                    // 3. Try the short name in Nexus Namespace
+                    sh 'curl -v --connect-timeout 2 http://nexus.nexus.svc.cluster.local:8082 || true'
+                    
+                    // 3. Try the "docker" specific service name (sometimes used)
+                    sh 'curl -v --connect-timeout 2 http://nexus-docker.nexus.svc.cluster.local:8082 || true'
+                    echo "-----------------------------------"
                 }
             }
         }
