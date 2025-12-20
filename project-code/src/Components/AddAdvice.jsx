@@ -49,7 +49,7 @@ const AddAdvice = () => {
     };
 
     fetchUserAdvices();
-  }, [auth.currentUser]);
+  }, []);
 
   const handleSubmit = async (e) => {
     e.preventDefault();

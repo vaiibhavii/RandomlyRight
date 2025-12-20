@@ -49,18 +49,18 @@ const AdditionalDetails = () => {
         }
     };
 
-    const sendVerificationEmail = async () => {
-        try {
-            const user = auth.currentUser;
-            if (user) {
-                await sendEmailVerification(user);
-                alert('Verification email sent. Please check your inbox.');
-            }
-        } catch (error) {
-            console.error('Error sending verification email:', error);
-            alert('Failed to send verification email. Please try again.');
-        }
-    };
+    // const sendVerificationEmail = async () => {
+    //     try {
+    //         const user = auth.currentUser;
+    //         if (user) {
+    //             await sendEmailVerification(user);
+    //             alert('Verification email sent. Please check your inbox.');
+    //         }
+    //     } catch (error) {
+    //         console.error('Error sending verification email:', error);
+    //         alert('Failed to send verification email. Please try again.');
+    //     }
+    // };
 
     // Check if the username is available in Firestore
     const checkUsernameAvailability = async (value) => {

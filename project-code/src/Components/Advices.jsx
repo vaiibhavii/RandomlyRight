@@ -13,13 +13,13 @@ import bgforShare from '../Assets/SignUp_LogIn_BG.png';
 import bgforSharewithLogo from '../Assets/Logo.png';
 import toast, { Toaster } from 'react-hot-toast';
 
-const questions = [
-  "How do you typically handle stress?",
-  "What's your approach to decision-making?",
-  "How do you prefer to interact with others?",
-  "What motivates you the most?",
-  "How do you deal with change?"
-];
+// const questions = [
+//   "How do you typically handle stress?",
+//   "What's your approach to decision-making?",
+//   "How do you prefer to interact with others?",
+//   "What motivates you the most?",
+//   "How do you deal with change?"
+// ];
 
 const Advices = () => {
   const [advice, setAdvice] = useState('');

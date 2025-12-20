@@ -20,7 +20,7 @@ import { useNavigate } from 'react-router-dom';
 const Homepage = () => {
 
   const [user, setUser] = useState(null);
-  const navigate = useNavigate();
+  // const navigate = useNavigate();
 
   // Check if a user is logged in
   useEffect(() => {
@@ -89,7 +89,7 @@ const Homepage = () => {
           <div className="col-md-4">
             <div className="benefit-block">
               <Tilt options={defaultOptions}>
-                <img src={anonymity} className="benefit-image w-50"></img>
+                <img alt="" src={anonymity} className="benefit-image w-50"></img>
                 <h3 className="benefit-title">Anonymity 🔶</h3>
                 <p className="benefit-description">Share advice without revealing your identity. 😐</p>
               </Tilt>
@@ -98,7 +98,7 @@ const Homepage = () => {
           <div className="col-md-4">
             <div className="benefit-block">
               <Tilt options={defaultOptions}>
-                <img src={community} className="benefit-image w-50"></img>
+                <img alt="" src={community} className="benefit-image w-50"></img>
                 <h3 className="benefit-title">Community 🌍</h3>
                 <p className="benefit-description">Join a diverse community of advice-givers and seekers. 🤝</p>
               </Tilt>
@@ -107,7 +107,7 @@ const Homepage = () => {
           <div className="col-md-4">
             <div className="benefit-block">
               <Tilt options={defaultOptions}>
-                <img src={reaction1} className="benefit-image w-50"></img>
+                <img alt="" src={reaction1} className="benefit-image w-50"></img>
                 <h3 className="benefit-title">Reactions ❤️👍</h3>
                 <p className="benefit-description">Get feedback with reactions to advice shared. 💬👁</p>
               </Tilt>
@@ -132,13 +132,13 @@ const Homepage = () => {
         <div className="instagram-frames">
           {/* Instagram Frame placeholders */}
           <div className="instagram-frame">
-            <img src={ss1} className="benefit-image"></img>
+            <img alt="" src={ss1} className="benefit-image"></img>
           </div>
           <div className="instagram-frame">
-            <img src={ss2} className="benefit-image "></img>
+            <img alt="" src={ss2} className="benefit-image "></img>
           </div>
           <div className="instagram-frame">
-            <img src={ss3} className="benefit-image "></img>
+            <img alt="" src={ss3} className="benefit-image "></img>
           </div>
         </div>
       </section>

@@ -20,7 +20,7 @@ import AdditionalDetails from './Components/AdditionalDetails';
 import ProfilePage from './Components/ProfilePage';
 import ResetPassword from './Components/Reset-password';
 import AddAdvice from './Components/AddAdvice';
-import SubscribeStrip from './Components/subscribe';
+// import SubscribeStrip from './Components/subscribe';
 
 
 function App() {

@@ -34,13 +34,13 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = 'nexus-service.nexus.svc.cluster.local:8082'
-        REGISTRY_URL = 'http://nexus-service.nexus.svc.cluster.local:8082'
+        REGISTRY_HOST = '192.168.20.250:30082'        
+        REGISTRY_URL = 'http://192.168.20.250:30082'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
         
-        SONAR_HOST_URL = 'http://sonarqube.imcc.com/'
+        SONAR_HOST_URL = 'http://192.168.20.250:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
         DEPLOYMENT_FILE = 'k8s/deployment.yaml'

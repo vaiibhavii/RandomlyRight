@@ -4,8 +4,8 @@ import './SubscribeStrip.css';
 
 const SubscribeStrip = () => {
     const [email, setEmail] = useState('');
-    const [successMessage, setSuccessMessage] = useState('');
-    const [errorMessage, setErrorMessage] = useState('');
+    // const [successMessage, setSuccessMessage] = useState('');
+    // const [errorMessage, setErrorMessage] = useState('');
 
     const handleSubscribe = (e) => {
         e.preventDefault();

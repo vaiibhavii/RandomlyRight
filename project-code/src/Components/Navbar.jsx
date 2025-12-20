@@ -3,7 +3,7 @@ import './Navbar.css';
 import { auth } from '../config/firebase';
 import { signOut, onAuthStateChanged } from 'firebase/auth';
 import { useNavigate } from 'react-router-dom';
-import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
+// import { FaUserCircle } from 'react-icons/fa'; // Importing a user icon
 import toast, { Toaster } from 'react-hot-toast';
 import logo from '../Assets/Logo.png'
 import { IoMdHome, IoMdInformationCircle, IoMdContact, IoMdContacts } from "react-icons/io";

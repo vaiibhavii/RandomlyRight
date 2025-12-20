@@ -20,7 +20,7 @@ const Footer = () => {
             <ul className="list-unstyled">
               <li>Email: krisundre@gmail.com / vaibhskulk@gmail.com</li>
               <li>Phone: +91 85914 81281 / +91 75179 76019</li>
-              <li>Developer: <a href='https://krishundre.vercel.app/' target='_blank'>Krish Undre</a> & Vaibhavi Kulkarni</li>
+              <li>Developer: <a href='https://krishundre.vercel.app/' target='_blank' rel="noreferrer">Krish Undre</a> & Vaibhavi Kulkarni</li>
             </ul>
           </div>
 
@@ -51,7 +51,7 @@ const Footer = () => {
 
               <li><a href="/termsofservice">Terms of Service</a></li>
               <li><a href="/privacy-policy">Privacy Policy</a></li>
-              <li><a href="https://docs.google.com/document/d/1HDF6Vc3-4t81tS5lN868tsQEW9g4kcgP/edit?usp=sharing&ouid=112010709532649457590&rtpof=true&sd=true" target='_blank'>Documentation</a></li>
+              <li><a href="https://docs.google.com/document/d/1HDF6Vc3-4t81tS5lN868tsQEW9g4kcgP/edit?usp=sharing&ouid=112010709532649457590&rtpof=true&sd=true" target='_blank' rel="noreferrer">Documentation</a></li>
             </ul>
           </div>
         </div>
