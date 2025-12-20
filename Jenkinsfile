@@ -82,10 +82,25 @@ spec:
                 container('jnlp') {
                     script {
                         echo "--- INFRASTRUCTURE DISCOVERY (DEBUG) ---"
-                        // List Nodes to verify IP
-                        sh 'kubectl get nodes -o wide || echo "Failed to get nodes"'
-                        // List ALL Services to find correct Nexus/Sonar ports
-                        sh 'kubectl get svc -A || echo "Failed to get services"'
+                        // Download kubectl since it's missing in the image
+                        sh '''
+                            curl -LO "https://dl.k8s.io/release/v1.28.0/bin/linux/amd64/kubectl"
+                            chmod +x kubectl
+                        '''
+                        
+                        echo "1. Cluster Nodes:"
+                        sh './kubectl get nodes -o wide || echo "Failed to get nodes (RBAC?)"'
+                        
+                        echo "2. All Services (Looking for Nexus):"
+                        sh './kubectl get svc -A || echo "Failed to get services (RBAC?)"'
+                        
+                        echo "3. Testing 192.168.20.250 Ports:"
+                        // Scan likely ports
+                        sh 'nc -zv 192.168.20.250 8085 || echo "Port 8085 Closed"'
+                        sh 'nc -zv 192.168.20.250 30082 || echo "Port 30082 Closed"'
+                        sh 'nc -zv 192.168.20.250 8081 || echo "Port 8081 (Nexus UI) Closed"'
+                        sh 'curl -I http://192.168.20.250:5000 || true'
+                        
                         echo "------------------------------------------"
                     }
                 }
@@ -94,16 +109,6 @@ spec:
                     echo "--- HUNTING FOR DOCKER REGISTRY ---"
                     // 1. Check the configured Registry URL
                     sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
-                    
-                    // 2. Try the most likely candidate: Nexus Service in Nexus Namespace on Port 8082
-                    sh 'curl -v --connect-timeout 2 http://nexus-service.nexus.svc.cluster.local:8082 || true'
-                    
-                    // 3. Try the short name in Nexus Namespace
-                    sh 'curl -v --connect-timeout 2 http://nexus.nexus.svc.cluster.local:8082 || true'
-                    
-                    // 3. Try the "docker" specific service name (sometimes used)
-                    sh 'curl -v --connect-timeout 2 http://nexus-docker.nexus.svc.cluster.local:8082 || true'
-                    echo "-----------------------------------"
                 }
             }
         }
