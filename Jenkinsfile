@@ -8,11 +8,6 @@ metadata:
   labels:
     app: jenkins-agent
 spec:
-  hostAliases:
-  - ip: "192.168.20.250"
-    hostnames:
-    - "nexus.imcc.com"
-    - "sonarqube.imcc.com"
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
@@ -21,14 +16,26 @@ spec:
     image: docker:dind
     securityContext:
       privileged: true
+    env:
+    - name: DOCKER_TLS_CERTDIR
+      value: ""
     command:
     - dockerd-entrypoint.sh
     tty: true
+    # This mount is the secret to fixing the "HTTPS" error
+    volumeMounts:
+    - name: docker-config
+      mountPath: /etc/docker/daemon.json
+      subPath: daemon.json
   - name: sonar
     image: sonarsource/sonar-scanner-cli:latest
     command:
     - cat
     tty: true
+  volumes:
+  - name: docker-config
+    configMap:
+      name: docker-daemon-config
 '''
         }
     }
@@ -38,14 +45,15 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // CORRECTED: Port 30085 is the UI. Port 30082 is the verified Docker connector.
-        REGISTRY_HOST = 'nexus.imcc.com:30082'
-        REGISTRY_URL = 'http://nexus.imcc.com:30082'
+        // Use the successful internal service name from the reference repo
+        REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:8085'
+        REGISTRY_URL = "http://${REGISTRY_HOST}"
         
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
         
-        SONAR_HOST_URL = 'http://sonarqube.imcc.com/'
+        // Use the internal SonarQube service name
+        SONAR_HOST_URL = 'http://my-sonarqube-sonarqube.sonarqube.svc.cluster.local:9000'
         
         IMAGE_TAG = "${BUILD_NUMBER}"
         DEPLOYMENT_FILE = 'k8s/deployment.yaml'
@@ -61,9 +69,8 @@ spec:
                 container('sonar') { 
                     script {
                         echo "Starting Code Quality Analysis..."
-                        // Using the token directly as verified in Build #11
-                        def status = sh(script: "sonar-scanner -Dsonar.projectKey=${IMAGE_NAME} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=student -Dsonar.password=Imccstudent@2025", returnStatus: true)
-                        if (status != 0) { echo "⚠️ SonarQube unreachable, continuing..." }
+                        // Using parameters verified in both repos
+                        sh "sonar-scanner -Dsonar.projectKey=${IMAGE_NAME} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=student -Dsonar.password=Imccstudent@2025"
                     }
                 }
             }
@@ -73,8 +80,8 @@ spec:
             steps {
                 container('dind') {
                     script {
-                        echo "Building image... Note: If 429 error occurs, wait 15 mins for Docker Hub reset."
-                        sh 'while ! docker info > /dev/null 2>&1; do sleep 1; done'
+                        // Wait for docker daemon as seen in reference repo
+                        sh 'timeout=60; while ! docker info > /dev/null 2>&1; do echo "Waiting..."; sleep 1; done'
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     }
                 }
@@ -85,14 +92,9 @@ spec:
             steps {
                 container('dind') {
                     script {
-                        echo "Pushing image to Nexus at ${REGISTRY_HOST}..."
-                        // Correct login command using the Registry Host
-                        sh "echo '${REGISTRY_PASS}' | docker login -u ${REGISTRY_USER} --password-stdin ${REGISTRY_HOST}"
-
+                        sh "docker login ${REGISTRY_HOST} -u ${REGISTRY_USER} -p ${REGISTRY_PASS}"
                         sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
                         sh "docker push ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
-                        
-                        echo "✅ Image successfully pushed to Nexus!"
                     }
                 }
             }
@@ -100,17 +102,11 @@ spec:
 
         stage('Deploy to Kubernetes') {
             steps {
-                container('jnlp') { 
-                    script {
-                        echo "Deploying to Namespace: ${NAMESPACE}"
-                        // Updating the deployment file dynamically
-                        sh "sed -i 's|image: .*|image: ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}"
-                        sh "sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}"
-
-                        sh "kubectl apply -f k8s/ -n ${NAMESPACE}"
-                        sh "kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE}"
-                        echo "🚀 Application deployed successfully!"
-                    }
+                script {
+                    // Update image in deployment file to use internal NodePort path for the pull
+                    sh "sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}"
+                    sh "sed -i 's|namespace: .*|namespace: ${NAMESPACE}|' ${DEPLOYMENT_FILE}"
+                    sh "kubectl apply -f k8s/ -n ${NAMESPACE}"
                 }
             }
         }
