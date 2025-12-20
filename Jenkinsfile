@@ -38,8 +38,9 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = 'nexus.imcc.com:8085'        
-        REGISTRY_URL = 'http://nexus.imcc.com:8085'
+        // Change from 8085 to 30082
+        REGISTRY_HOST = 'nexus.imcc.com:30082'        
+        REGISTRY_URL = 'http://nexus.imcc.com:30082'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025'
