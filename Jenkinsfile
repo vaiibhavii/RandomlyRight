@@ -8,6 +8,10 @@ metadata:
   labels:
     app: jenkins-agent
 spec:
+  hostAliases:
+  - ip: "192.168.20.250"
+    hostnames:
+    - "nexus.imcc.com"
   containers:
   - name: jnlp
     image: jenkins/inbound-agent:latest
@@ -34,11 +38,12 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = '192.168.20.250:30082'        
-        REGISTRY_URL = 'http://192.168.20.250:30082'
+        // Updated to match deployment.yaml and using hostAlias
+        REGISTRY_HOST = 'nexus.imcc.com:8085'        
+        REGISTRY_URL = 'http://nexus.imcc.com:8085'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
-        REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
+        REGISTRY_PASS = 'Imcc@2025'
         
         SONAR_HOST_URL = 'http://192.168.20.250:9000'
         
@@ -76,10 +81,13 @@ spec:
             steps {
                 script {
                     echo "--- HUNTING FOR DOCKER REGISTRY ---"
-                    // 1. Try the most likely candidate: Nexus Service in Nexus Namespace on Port 8082
+                    // 1. Check the configured Registry URL
+                    sh "curl -v --connect-timeout 2 ${REGISTRY_URL} || true"
+                    
+                    // 2. Try the most likely candidate: Nexus Service in Nexus Namespace on Port 8082
                     sh 'curl -v --connect-timeout 2 http://nexus-service.nexus.svc.cluster.local:8082 || true'
                     
-                    // 2. Try the short name in Nexus Namespace
+                    // 3. Try the short name in Nexus Namespace
                     sh 'curl -v --connect-timeout 2 http://nexus.nexus.svc.cluster.local:8082 || true'
                     
                     // 3. Try the "docker" specific service name (sometimes used)
