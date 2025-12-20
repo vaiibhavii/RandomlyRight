@@ -53,11 +53,11 @@ spec:
 
     environment {
         ROLL_NO = '2401108'
-        // Added 'my-repository/' to match the proven reference path
         IMAGE_NAME = "my-repository/randomlyright-${ROLL_NO}"
+        // FIXED: Sonar key cannot have '/'
+        SONAR_PROJECT_KEY = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        // Use the verified internal host from Build #17
         REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:8085'
         REGISTRY_URL = "http://${REGISTRY_HOST}"
         
@@ -79,8 +79,9 @@ spec:
             steps {
                 container('sonar') { 
                     script {
-                        echo "Starting Code Quality Analysis..."
-                        sh "sonar-scanner -Dsonar.projectKey=${IMAGE_NAME} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=student -Dsonar.password=Imccstudent@2025"
+                        echo "Starting Analysis..."
+                        // FIXED: Use SONAR_PROJECT_KEY (no slash)
+                        sh "sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=student -Dsonar.password=Imccstudent@2025"
                     }
                 }
             }
@@ -90,7 +91,7 @@ spec:
             steps {
                 container('dind') {
                     script {
-                        sh 'timeout=60; while ! docker info > /dev/null 2>&1; do echo "Waiting for Docker..."; sleep 1; done'
+                        sh 'timeout=60; while ! docker info > /dev/null 2>&1; do echo "Waiting..."; sleep 1; done'
                         sh "docker build -t ${IMAGE_NAME}:${IMAGE_TAG} ."
                     }
                 }
@@ -101,7 +102,6 @@ spec:
             steps {
                 container('dind') {
                     script {
-                        echo "Pushing image to Nexus..."
                         sh "docker login ${REGISTRY_HOST} -u ${REGISTRY_USER} -p ${REGISTRY_PASS}"
                         sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
                         sh "docker push ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -114,22 +114,15 @@ spec:
             steps {
                 container('kubectl') { 
                     script {
-                        echo "Preparing Namespace and Deploying..."
+                        echo "Deploying to Namespace: ${NAMESPACE}"
                         sh """
-                            # 1. Create the namespace if it doesn't exist (Reference Fix)
                             kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
-
-                            # 2. Update image and namespace in YAML (ensuring quotes for string type)
                             sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}
                             sed -i 's|namespace: .*|namespace: \"${NAMESPACE}\"|' ${DEPLOYMENT_FILE}
-
-                            # 3. Apply all k8s manifests
                             kubectl apply -f k8s/ -n ${NAMESPACE}
-                            
-                            # 4. Verify the rollout
                             kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE} --timeout=5m
                         """
-                        echo "🚀 100% SUCCESSFUL DEPLOYMENT"
+                        echo "🚀 100% SUCCESSFUL PIPELINE"
                     }
                 }
             }
