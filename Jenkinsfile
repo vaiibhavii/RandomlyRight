@@ -34,8 +34,8 @@ spec:
         IMAGE_NAME = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
-        REGISTRY_HOST = 'nexus.default.svc.cluster.local:8081'
-        REGISTRY_URL = 'http://nexus.default.svc.cluster.local:8081'
+        REGISTRY_HOST = 'nexus-service.nexus.svc.cluster.local:8082'
+        REGISTRY_URL = 'http://nexus-service.nexus.svc.cluster.local:8082'
         // Hardcoding credentials since ID 'student' was missing
         REGISTRY_USER = 'student'
         REGISTRY_PASS = 'Imcc@2025' // Updated from your prompt
@@ -75,14 +75,16 @@ spec:
         stage('Network Check') {
             steps {
                 script {
-                    echo "--- SEARCHING FOR NEXUS ---"
-                    // Try to reach common Nexus names using curl
-                    // We use '|| true' so the build doesn't stop if one fails
-                    sh 'curl -v --connect-timeout 2 http://nexus-service.default.svc.cluster.local:8081 || true'
-                    sh 'curl -v --connect-timeout 2 http://nexus.default.svc.cluster.local:8081 || true'
-                    sh 'curl -v --connect-timeout 2 http://nexus.jenkins.svc.cluster.local:8081 || true'
-                    sh 'curl -v --connect-timeout 2 http://192.168.20.250:30085 || true'
-                    echo "---------------------------"
+                    echo "--- HUNTING FOR DOCKER REGISTRY ---"
+                    // 1. Try the most likely candidate: Nexus Service in Nexus Namespace on Port 8082
+                    sh 'curl -v --connect-timeout 2 http://nexus-service.nexus.svc.cluster.local:8082 || true'
+                    
+                    // 2. Try the short name in Nexus Namespace
+                    sh 'curl -v --connect-timeout 2 http://nexus.nexus.svc.cluster.local:8082 || true'
+                    
+                    // 3. Try the "docker" specific service name (sometimes used)
+                    sh 'curl -v --connect-timeout 2 http://nexus-docker.nexus.svc.cluster.local:8082 || true'
+                    echo "-----------------------------------"
                 }
             }
         }
