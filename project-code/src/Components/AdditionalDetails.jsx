@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import './AdditionalDetails.css';
 import { db, auth } from '../config/firebase'; // Firestore and auth import
 import { doc, getDoc, setDoc, serverTimestamp } from 'firebase/firestore'; // Firestore methods
-import { sendEmailVerification } from 'firebase/auth'; // Email verification method
+// import { sendEmailVerification } from 'firebase/auth'; // Email verification method
 import { useNavigate } from 'react-router-dom';
 
 const AdditionalDetails = () => {

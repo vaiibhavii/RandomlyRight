@@ -47,7 +47,7 @@ spec:
 
     environment {
         ROLL_NO = '2401108'
-        IMAGE_NAME = "randomlyright-${ROLL_NO}"
+        IMAGE_NAME = "${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
         // PROVEN: This internal host worked for Push in Build #13

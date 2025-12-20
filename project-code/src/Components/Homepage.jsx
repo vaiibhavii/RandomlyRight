@@ -13,9 +13,7 @@ import { Tilt } from 'react-tilt'
 import AdviceOfDay from "./AdviceOfDay";
 import { auth } from '../config/firebase';
 import { onAuthStateChanged } from 'firebase/auth';
-import { useNavigate } from 'react-router-dom';
-
-
+// import { useNavigate } from 'react-router-dom';
 
 const Homepage = () => {
 
