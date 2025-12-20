@@ -17,9 +17,9 @@ spec:
     spec:
       containers:
         - name: randomlyright-container
-          image: nexus.imcc.com:8085/my-repository/randomlyright-2401108:latest
+          image: localhost:30085/my-repository/randomlyright-2401108:latest
           ports:
-            - containerPort: 80  # WARNING: Ensure your Dockerfile EXPOSES port 80!
+            - containerPort: 80
           resources:
             requests:
               memory: "128Mi"
@@ -28,16 +28,3 @@ spec:
               memory: "256Mi"
               cpu: "500m"
           imagePullPolicy: Always
-          # --- VOLUME MOUNT GOES HERE (Inside the container block) ---
-          volumeMounts:
-            - mountPath: "/data"
-              name: my-storage
-      
-      imagePullSecrets:
-        - name: nexus-credentials
-      
-      # --- VOLUMES DEFINITION GOES HERE (Same level as containers) ---
-      volumes:
-        - name: my-storage
-          persistentVolumeClaim:
-            claimName: randomlyright-pvc

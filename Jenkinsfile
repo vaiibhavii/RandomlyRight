@@ -53,9 +53,11 @@ spec:
 
     environment {
         ROLL_NO = '2401108'
-        IMAGE_NAME = "randomlyright-${ROLL_NO}"
+        // Added 'my-repository/' to match the proven reference path
+        IMAGE_NAME = "my-repository/randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
+        // Use the verified internal host from Build #17
         REGISTRY_HOST = 'nexus-service-for-docker-hosted-registry.nexus.svc.cluster.local:8085'
         REGISTRY_URL = "http://${REGISTRY_HOST}"
         
