@@ -79,6 +79,17 @@ spec:
 
         stage('Network Check') {
             steps {
+                container('jnlp') {
+                    script {
+                        echo "--- INFRASTRUCTURE DISCOVERY (DEBUG) ---"
+                        // List Nodes to verify IP
+                        sh 'kubectl get nodes -o wide || echo "Failed to get nodes"'
+                        // List ALL Services to find correct Nexus/Sonar ports
+                        sh 'kubectl get svc -A || echo "Failed to get services"'
+                        echo "------------------------------------------"
+                    }
+                }
+                
                 script {
                     echo "--- HUNTING FOR DOCKER REGISTRY ---"
                     // 1. Check the configured Registry URL
