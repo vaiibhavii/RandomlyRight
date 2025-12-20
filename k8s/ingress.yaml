@@ -7,7 +7,7 @@ metadata:
     nginx.ingress.kubernetes.io/rewrite-target: /
 spec:
   rules:
-    - host: randomlyright.imcc.com # Change this to your actual DNS if provided (e.g., node-ip.nip.io)
+    - host: randomlyright.imcc.com 
       http:
         paths:
           - path: /

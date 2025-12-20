@@ -54,7 +54,6 @@ spec:
     environment {
         ROLL_NO = '2401108'
         IMAGE_NAME = "my-repository/randomlyright-${ROLL_NO}"
-        // FIXED: Sonar key cannot have '/'
         SONAR_PROJECT_KEY = "randomlyright-${ROLL_NO}"
         NAMESPACE = "${ROLL_NO}"
         
@@ -79,9 +78,17 @@ spec:
             steps {
                 container('sonar') { 
                     script {
-                        echo "Starting Analysis..."
-                        // FIXED: Use SONAR_PROJECT_KEY (no slash)
-                        sh "sonar-scanner -Dsonar.projectKey=${SONAR_PROJECT_KEY} -Dsonar.sources=. -Dsonar.host.url=${SONAR_HOST_URL} -Dsonar.login=student -Dsonar.password=Imccstudent@2025"
+                        echo "Starting Code Quality Analysis..."
+                        // ADDED: Exclusions from Stalum to make analysis cleaner
+                        sh """
+                            sonar-scanner \
+                            -Dsonar.projectKey=${SONAR_PROJECT_KEY} \
+                            -Dsonar.sources=. \
+                            -Dsonar.host.url=${SONAR_HOST_URL} \
+                            -Dsonar.login=student \
+                            -Dsonar.password=Imccstudent@2025 \
+                            -Dsonar.exclusions=**/node_modules/**,**/build/**,**/*.test.js
+                        """
                     }
                 }
             }
@@ -102,6 +109,7 @@ spec:
             steps {
                 container('dind') {
                     script {
+                        echo "Pushing to Nexus..."
                         sh "docker login ${REGISTRY_HOST} -u ${REGISTRY_USER} -p ${REGISTRY_PASS}"
                         sh "docker tag ${IMAGE_NAME}:${IMAGE_TAG} ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
                         sh "docker push ${REGISTRY_HOST}/${IMAGE_NAME}:${IMAGE_TAG}"
@@ -110,19 +118,35 @@ spec:
             }
         }
 
-        stage('Deploy to Kubernetes') {
+        stage('Deploy Application') {
             steps {
                 container('kubectl') { 
                     script {
                         echo "Deploying to Namespace: ${NAMESPACE}"
                         sh """
+                            # 1. Ensure Namespace exists
                             kubectl create namespace ${NAMESPACE} --dry-run=client -o yaml | kubectl apply -f -
+
+                            # 2. ADDED: Force delete old deployment to clear stuck pods (from Stalum reference)
+                            kubectl delete deployment randomlyright-deployment -n ${NAMESPACE} --ignore-not-found=true
+
+                            # 3. Update YAML with Image and Namespace
                             sed -i 's|image: .*|image: localhost:30085/${IMAGE_NAME}:${IMAGE_TAG}|' ${DEPLOYMENT_FILE}
                             sed -i 's|namespace: .*|namespace: \"${NAMESPACE}\"|' ${DEPLOYMENT_FILE}
+
+                            # 4. Apply all manifests from the k8s folder
                             kubectl apply -f k8s/ -n ${NAMESPACE}
-                            kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE} --timeout=5m
+
+                            # 5. ENHANCED: Rollout verification with Fail-Safe Diagnostics (from Stalum reference)
+                            if ! kubectl rollout status deployment/randomlyright-deployment -n ${NAMESPACE} --timeout=5m; then
+                                echo "❌ Rollout FAILED. Collecting Debug Information..."
+                                kubectl get pods -n ${NAMESPACE} -o wide
+                                kubectl describe pods -n ${NAMESPACE}
+                                exit 1
+                            fi
+                            
+                            echo "🚀 100% SUCCESSFUL DEPLOYMENT"
                         """
-                        echo "🚀 100% SUCCESSFUL PIPELINE"
                     }
                 }
             }
